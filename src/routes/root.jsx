@@ -7,7 +7,7 @@ export default function Root() {
     return (
         <>
             <Nav />
-            <div id="detail">
+            <div className="my-20 mx-12">
                 <Outlet />
             </div>
         </>

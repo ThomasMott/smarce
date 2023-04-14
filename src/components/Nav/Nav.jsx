@@ -16,14 +16,24 @@ export default function Nav() {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="/wishlist">About</a>
-                        </li>
-                        <li>
-                            <a href="/">Services</a>
+                            <a href="/saved">Saved</a>
                         </li>
                     </ul>
                 </div>
-                <div>profile</div>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="/about">Add post</a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="/account">Account</a>
+                            <a href="/login">Login</a>
+                            <a href="/help">Help</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     );

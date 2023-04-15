@@ -1,9 +1,10 @@
 import React from 'react';
+import LoginModal from '../components/Modal/LoginModal';
 
 export default function LoginPage() {
     return (
-        <div>
-            <h1>Login page</h1>
-        </div>
+        <>
+            <LoginModal />
+        </>
     );
 }

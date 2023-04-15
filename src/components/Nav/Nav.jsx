@@ -1,4 +1,6 @@
 import React from 'react';
+import DropMenu from './DropMenu';
+import LoginModal from '../Modal/LoginModal';
 
 export default function Nav() {
     return (
@@ -7,12 +9,9 @@ export default function Nav() {
                 <a href="/" className="flex items-center">
                     <span className="self-center whitespace-nowrap">logo</span>
                 </a>
-                <div
-                    className="items-center justify-between w-full flex w-auto"
-                    id="navbar-sticky"
-                >
+                <div className="items-center justify-between w-full flex w-auto" id="navbar-sticky">
                     <ul className="flex">
-                        <li>
+                        <li className="mr-4">
                             <a href="/">Home</a>
                         </li>
                         <li>
@@ -20,19 +19,12 @@ export default function Nav() {
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <ul>
-                        <li>
-                            <a href="/about">Add post</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <a href="/account">Account</a>
-                            <a href="/login">Login</a>
-                            <a href="/help">Help</a>
-                        </li>
-                    </ul>
+                <div className="flex">
+                    <a href="/about" className="mr-4">
+                        Add post
+                    </a>
+                    <LoginModal />
+                    <DropMenu />
                 </div>
             </div>
         </nav>

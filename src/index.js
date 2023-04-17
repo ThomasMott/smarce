@@ -4,7 +4,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     Route,
-    RouterProvider
+    RouterProvider,
 } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
@@ -20,7 +20,7 @@ import HomePage from './pages/homePage';
 import LoginPage from './pages/loginPage';
 import NewPostPage from './pages/newPostPage';
 import PostPage from './pages/postPage';
-import SavedPage from './pages/savedPage';
+// import SavedPage from './pages/savedPage';
 import Root from './routes/root';
 
 /* set up page routes */
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
                     <Route path="post/edit/:id" element={<EditPostPage />} />
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
-                <Route path="saved" element={<SavedPage />} />
+                {/* <Route path="saved" element={<SavedPage />} /> */}
                 <Route path="login" element={<LoginPage />} />
             </Route>
         </Route>

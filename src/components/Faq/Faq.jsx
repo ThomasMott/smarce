@@ -3,8 +3,8 @@ import FaqItem from './FaqItem';
 
 export default function Faq() {
     return (
-        <section className="bg-white">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <section className="max-w-screen-lg mx-auto">
+            <div className="py-8 px-4 sm:py-16 lg:px-6">
                 <h2 className="mb-8 text-4xl tracking-tight font-extrabold text-gray-900">
                     Frequently asked questions
                 </h2>

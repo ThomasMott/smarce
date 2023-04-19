@@ -1,5 +1,6 @@
 import React from 'react';
 import FormInput from '../Form/FormInput';
+import Button from '../Form/Button';
 
 export default function LoginModal() {
     return (
@@ -44,12 +45,7 @@ export default function LoginModal() {
                     Lost Password?
                 </a>
             </div>
-            <button
-                type="submit"
-                className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-            >
-                Login to your account
-            </button>
+            <Button label="Login to your account" />
             <div className="text-sm font-medium text-gray-500">
                 Not registered?{' '}
                 <a href="#" className="text-blue-700 hover:underline">

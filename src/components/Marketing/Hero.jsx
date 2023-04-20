@@ -1,7 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Announcement from './Announcement';
+import React from 'react';
+import { NEW_POST_PAGE } from '../..';
 import Button from '../Form/Button';
+import Announcement from './Announcement';
 
 export default function Hero({ title, text, href, moreHref }) {
     return (
@@ -9,7 +10,7 @@ export default function Hero({ title, text, href, moreHref }) {
             <Announcement
                 announcement="Convinced to get started?"
                 cta="Create a listing"
-                href="/post/new"
+                href={NEW_POST_PAGE}
             />
             <div className="text-center">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">

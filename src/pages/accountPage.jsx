@@ -1,4 +1,5 @@
 import React from 'react';
+import { EDIT_POST_PAGE, NEW_POST_PAGE } from '..';
 
 export default function AccountPage() {
     return (
@@ -10,14 +11,14 @@ export default function AccountPage() {
                     details
                     <ul>
                         <li>
-                            <a href="/account/post/new">Create new post</a>
+                            <a href={NEW_POST_PAGE}>Create new post</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div>
                 my posts
-                <a href="/account/post/edit/1">Edit post</a>
+                <a href={EDIT_POST_PAGE}>Edit post</a>
             </div>
         </>
     );

@@ -1,4 +1,7 @@
 import React from 'react';
+import { ABOUT_PAGE, ACCOUNT_PAGE, HELP_PAGE, HOME_PAGE, NEW_POST_PAGE } from '../..';
+import logo from '../../assets/logo.svg';
+import Button from '../Form/Button';
 
 export default function Footer() {
     return (
@@ -7,66 +10,42 @@ export default function Footer() {
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
                         <a href="https://flowbite.com" className="flex items-center">
-                            Logo
+                            <img className="w-8" src={logo} alt="logo" />
                         </a>
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                                Resources
-                            </h2>
+                            <h2 className="mb-6 text-sm font-semibold text-gray-900">Resources</h2>
                             <ul className="text-gray-600">
                                 <li className="mb-4">
-                                    <a href="https://flowbite.com" className="hover:underline">
-                                        Flowbite
+                                    <a href={HOME_PAGE} className="hover:underline">
+                                        Home
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="https://tailwindcss.com/" className="hover:underline">
-                                        Tailwind CSS
+                                <li className="mb-4">
+                                    <a href={ABOUT_PAGE} className="hover:underline">
+                                        About Us
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                                Follow us
-                            </h2>
+                            <h2 className="mb-6 text-sm font-semibold text-gray-900">Profile</h2>
                             <ul className="text-gray-600">
                                 <li className="mb-4">
-                                    <a
-                                        href="https://github.com/themesberg/flowbite"
-                                        className="hover:underline "
-                                    >
-                                        Github
+                                    <a href={ACCOUNT_PAGE} className="hover:underline ">
+                                        Account
                                     </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href="https://discord.gg/4eeurUVvTy"
-                                        className="hover:underline"
-                                    >
-                                        Discord
+                                <li className="mb-4">
+                                    <a href={HELP_PAGE} className="hover:underline">
+                                        Help
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                                Legal
-                            </h2>
-                            <ul className="text-gray-600">
-                                <li className="mb-4">
-                                    <a href="#" className="hover:underline">
-                                        Privacy Policy
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="hover:underline">
-                                        Terms &amp; Conditions
-                                    </a>
-                                </li>
-                            </ul>
+                            <Button label="Add post" href={NEW_POST_PAGE} />
                         </div>
                     </div>
                 </div>
@@ -74,8 +53,8 @@ export default function Footer() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <span className="text-sm text-gray-500 sm:text-center">
                         © 2022{' '}
-                        <a href="https://smarce.com" className="hover:underline">
-                            Smarce™
+                        <a href="https://Smart Source.com" className="hover:underline">
+                            Smart Source™
                         </a>
                         . All Rights Reserved.
                     </span>

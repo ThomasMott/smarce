@@ -1,9 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { POST_PAGE } from '../..';
 
-export default function Post({title, author, rating}) {
+export default function Post({ title, author, rating }) {
     return (
-        <a href="/post/1">
+        <a href={POST_PAGE}>
             <div className="h-full w-full">
                 <div className="relative w-full">
                     <img
@@ -27,5 +28,5 @@ export default function Post({title, author, rating}) {
 Post.propTypes = {
     title: PropTypes.string,
     author: PropTypes.string,
-    rating: PropTypes.number
+    rating: PropTypes.number,
 };

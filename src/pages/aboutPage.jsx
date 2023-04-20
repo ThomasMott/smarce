@@ -1,4 +1,5 @@
 import React from 'react';
+import { NEW_POST_PAGE } from '..';
 import Content from '../components/Marketing/Content';
 import Cta from '../components/Marketing/Cta';
 import Hero from '../components/Marketing/Hero';
@@ -31,9 +32,9 @@ export default function AboutPage() {
             />
             <Cta
                 title="Help bring businesses together."
-                text="Smarce helps you connect with local businesses and communities of people
+                text="Smart Source helps you connect with local businesses and communities of people
                         who can share resources."
-                href="/posts/new"
+                href={NEW_POST_PAGE}
             />
         </section>
     );

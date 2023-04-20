@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
-import React from 'react';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
+import { ACCOUNT_PAGE, HELP_PAGE } from '../..';
 
 export default function DropMenu() {
     return (
@@ -22,9 +22,9 @@ export default function DropMenu() {
                         <Menu.Item>
                             {({ active }) => (
                                 <a
-                                    href="/account"
+                                    href={ACCOUNT_PAGE}
                                     className={`${
-                                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                        active ? 'bg-gray-100' : 'text-gray-900'
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                     Account
@@ -36,9 +36,9 @@ export default function DropMenu() {
                         <Menu.Item>
                             {({ active }) => (
                                 <a
-                                    href="/help"
+                                    href={HELP_PAGE}
                                     className={`${
-                                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                        active ? 'bg-gray-100' : 'text-gray-900'
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                     Help
@@ -50,7 +50,7 @@ export default function DropMenu() {
                                 <a
                                     href="/logout"
                                     className={`${
-                                        active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                        active ? 'bg-gray-100' : 'text-gray-900'
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                                 >
                                     Logout

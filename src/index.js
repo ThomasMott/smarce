@@ -17,11 +17,19 @@ import EditPostPage from './pages/editPostPage';
 import ErrorPage from './pages/errorPage';
 import HelpPage from './pages/helpPage';
 import HomePage from './pages/homePage';
-import LoginPage from './pages/loginPage';
 import NewPostPage from './pages/newPostPage';
 import PostPage from './pages/postPage';
 // import SavedPage from './pages/savedPage';
 import Root from './routes/root';
+
+/* define page routes */
+export const ABOUT_PAGE = '/about';
+export const ACCOUNT_PAGE = '/account';
+export const EDIT_POST_PAGE = 'account/post/edit/1';
+export const HELP_PAGE = '/help';
+export const HOME_PAGE = '/';
+export const NEW_POST_PAGE = 'account/post/new';
+export const POST_PAGE = '/post/1';
 
 /* set up page routes */
 const router = createBrowserRouter(
@@ -38,7 +46,6 @@ const router = createBrowserRouter(
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
                 {/* <Route path="saved" element={<SavedPage />} /> */}
-                <Route path="login" element={<LoginPage />} />
             </Route>
         </Route>
     )

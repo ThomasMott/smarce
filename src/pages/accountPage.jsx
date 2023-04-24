@@ -1,25 +1,28 @@
 import React from 'react';
-import { EDIT_POST_PAGE, NEW_POST_PAGE } from '..';
+import AccountModal from '../components/Modal/AccountModal';
+import Modal from '../components/Modal/Modal';
+import PostModal from '../components/Modal/PostModal';
+import Post from '../components/Post/Post';
 
 export default function AccountPage() {
     return (
-        <>
-            <div className="grid grid-column-2 gap-4">
+        <section className="max-w-screen-lg mx-auto">
+            <div className="grid grid-column-2 gap-4 mx-4 mb-10">
                 <div>
-                    <h1>Account page</h1>
-                    <div>Edit Account</div>
-                    details
-                    <ul>
-                        <li>
-                            <a href={NEW_POST_PAGE}>Create new post</a>
-                        </li>
-                    </ul>
+                    <h1 className="text-2xl font-bold mb-6">My Account</h1>
+                    <p>details</p>
+                    <Modal button="Edit details" title="Edit details" content={<AccountModal />} />
                 </div>
             </div>
-            <div>
-                my posts
-                <a href={EDIT_POST_PAGE}>Edit post</a>
+            <div className="flex items-center mb-4">
+                <h2 className="text-xl font-bold m-4">My Posts</h2>
+                <Modal button="Add post" title="New Post" content={<PostModal />} />
             </div>
-        </>
+            <div className="grid gap-8 grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+                <Post title="Post Title" author="TMott inc" rating={5} edit />
+                <Post title="Post Title" author="TMott inc" rating={5} edit />
+                <Post title="Post Title" author="TMott inc" rating={5} edit />
+            </div>
+        </section>
     );
 }

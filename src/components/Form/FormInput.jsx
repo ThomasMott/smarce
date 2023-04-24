@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function FormInput({ label, type, name, id, placeholder, isRequired }) {
     return (
-        <>
+        <div>
             <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900">
                 {label}
             </label>
@@ -15,7 +15,7 @@ export default function FormInput({ label, type, name, id, placeholder, isRequir
                 placeholder={placeholder}
                 required={isRequired}
             />
-        </>
+        </div>
     );
 }
 

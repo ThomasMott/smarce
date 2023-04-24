@@ -1,7 +1,8 @@
 import React from 'react';
-import { ABOUT_PAGE, ACCOUNT_PAGE, HELP_PAGE, HOME_PAGE, NEW_POST_PAGE } from '../..';
+import { ABOUT_PAGE, ACCOUNT_PAGE, HELP_PAGE, HOME_PAGE } from '../..';
 import logo from '../../assets/logo.svg';
-import Button from '../Form/Button';
+import Modal from '../Modal/Modal';
+import PostModal from '../Modal/PostModal';
 
 export default function Footer() {
     return (
@@ -45,7 +46,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <Button label="Add post" href={NEW_POST_PAGE} />
+                            <Modal button="Add post" title="New Post" content={<PostModal />} />
                         </div>
                     </div>
                 </div>

@@ -45,7 +45,6 @@ const router = createBrowserRouter(
                     <Route path="post/edit/:id" element={<EditPostPage />} />
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
-                {/* <Route path="saved" element={<SavedPage />} /> */}
             </Route>
         </Route>
     )

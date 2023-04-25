@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import PropTypes from 'prop-types';
 import React, { Fragment, useState } from 'react';
 
-export default function Modal({ button, title, content }) {
+export default function Modal({ button, title, content, size }) {
     let [isOpen, setIsOpen] = useState(false);
 
     function closeModal() {
@@ -44,7 +44,9 @@ export default function Modal({ button, title, content }) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel
+                                    className={`w-full max-w-${size} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
+                                >
                                     <Dialog.Title
                                         as="h3"
                                         className="font-bold leading-6 text-gray-600"
@@ -87,4 +89,5 @@ Modal.propTypes = {
     button: PropTypes.string,
     title: PropTypes.string,
     content: PropTypes.element,
+    size: PropTypes.string,
 };

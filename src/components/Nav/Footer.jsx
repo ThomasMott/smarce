@@ -46,7 +46,12 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div>
-                            <Modal button="Add post" title="New Post" content={<PostModal />} />
+                            <Modal
+                                button="Add post"
+                                title="New Post"
+                                size="2xl"
+                                content={<PostModal />}
+                            />
                         </div>
                     </div>
                 </div>

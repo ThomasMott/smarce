@@ -11,15 +11,14 @@ export default function PostModal() {
                 name="p-title"
                 id="p-title"
                 placeholder="What are you looking to get rid of?"
-                required
+                isRequired
             />
             <FormInput
                 label="Post description"
                 type="text"
                 name="p-title"
                 id="p-title"
-                placeholder="name@company.com"
-                required
+                placeholder="A short description of what you have"
             />
             <div>material selector</div>
             <div>location</div>

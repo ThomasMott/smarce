@@ -5,7 +5,7 @@ export default function FormInput({ label, type, name, id, placeholder, isRequir
     return (
         <div>
             <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900">
-                {label}
+                {label} {isRequired && <span className="text-red-400">*</span>}
             </label>
             <input
                 type={type}

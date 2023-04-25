@@ -11,7 +11,7 @@ export default function SignUpForm() {
                 name="name"
                 id="name"
                 placeholder="name@company.com"
-                required
+                isRequired
             />
             <FormInput
                 label="Company email"
@@ -19,7 +19,7 @@ export default function SignUpForm() {
                 name="email"
                 id="email"
                 placeholder="name@company.com"
-                required
+                isRequired
             />
             <FormInput
                 label="Your Password"

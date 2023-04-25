@@ -26,8 +26,8 @@ export default function Nav() {
                     </ul>
                 </div>
                 <div className="flex w-60">
-                    <Modal button="Add post" title="New Post" content={<PostModal />} />
-                    <Modal button="Login" content={<LoginModal />} />
+                    <Modal button="Add post" title="New Post" size="2xl" content={<PostModal />} />
+                    <Modal button="Login" content={<LoginModal />} size="md" />
                     <DropMenu />
                 </div>
             </div>

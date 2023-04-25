@@ -11,7 +11,7 @@ export default function LogInForm() {
                 name="email"
                 id="email"
                 placeholder="name@company.com"
-                required
+                isRequired
             />
             <FormInput
                 label="Your Password"

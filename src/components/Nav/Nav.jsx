@@ -9,8 +9,8 @@ import PostModal from '../Modal/PostModal';
 export default function Nav() {
     return (
         <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-            <div className="flex flex-wrap items-center justify-between mx-8 p-4">
-                <div className="w-60">
+            <div className="flex items-center justify-between mx-8 p-4">
+                <div className="w-14">
                     <a href={HOME_PAGE} className="flex items-center">
                         <img className="w-6" src={logo} alt="logo" />
                     </a>
@@ -27,7 +27,7 @@ export default function Nav() {
                 </div>
                 <div className="flex w-60">
                     <Modal button="Add post" title="New Post" size="2xl" content={<PostModal />} />
-                    <Modal button="Login" content={<LoginModal />} size="md" />
+                    <Modal button="Login" size="md" content={<LoginModal />} />
                     <DropMenu />
                 </div>
             </div>

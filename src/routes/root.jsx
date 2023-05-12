@@ -8,9 +8,9 @@ export default function Root() {
     return (
         <>
             <Nav />
-            <body className="my-28 mx-12">
+            <section className="my-28 mx-12">
                 <Outlet />
-            </body>
+            </section>
             <Footer />
         </>
     );

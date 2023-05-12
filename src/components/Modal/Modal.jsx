@@ -13,6 +13,17 @@ export default function Modal({ button, title, content, size }) {
         setIsOpen(true);
     }
 
+    let modalSize;
+
+    switch (size) {
+        case 'md':
+            modalSize = 'max-w-md';
+            break;
+        case '2xl':
+            modalSize = 'max-w-2xl';
+            break;
+    }
+
     return (
         <>
             <button type="button" onClick={openModal} className="mr-4">
@@ -45,7 +56,7 @@ export default function Modal({ button, title, content, size }) {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    className={`w-full max-w-${size} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
+                                    className={`w-full ${modalSize} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
                                 >
                                     <Dialog.Title
                                         as="h3"

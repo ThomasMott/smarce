@@ -7,8 +7,9 @@ import {
     Route,
     RouterProvider,
 } from 'react-router-dom';
+import { persistor, store } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
-import store from './store';
 
 import './index.css';
 
@@ -21,7 +22,6 @@ import HelpPage from './pages/helpPage';
 import HomePage from './pages/homePage';
 import NewPostPage from './pages/newPostPage';
 import PostPage from './pages/postPage';
-// import SavedPage from './pages/savedPage';
 import Root from './routes/root';
 
 /* define page routes */
@@ -55,7 +55,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router} />
+            <PersistGate loading={null} persistor={persistor}>
+                <RouterProvider router={router} />
+            </PersistGate>
         </Provider>
     </React.StrictMode>
 );

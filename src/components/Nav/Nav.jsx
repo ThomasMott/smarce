@@ -5,8 +5,11 @@ import LoginModal from '../Modal/LoginModal';
 import Modal from '../Modal/Modal';
 import DropMenu from './DropMenu';
 import PostModal from '../Modal/PostModal';
+import { useSelector } from 'react-redux';
 
 export default function Nav() {
+    const auth = useSelector((state) => state.auth);
+
     return (
         <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
             <div className="flex items-center justify-between mx-8 p-4">
@@ -27,8 +30,11 @@ export default function Nav() {
                 </div>
                 <div className="flex w-60">
                     <Modal button="Add post" title="New Post" size="2xl" content={<PostModal />} />
-                    <Modal button="Login" size="md" content={<LoginModal />} />
-                    <DropMenu />
+                    {auth.isAuthenticated ? (
+                        <DropMenu />
+                    ) : (
+                        <Modal button="Login" size="md" content={<LoginModal />} />
+                    )}
                 </div>
             </div>
         </nav>

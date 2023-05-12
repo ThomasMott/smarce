@@ -1,8 +1,14 @@
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 import { ACCOUNT_PAGE, HELP_PAGE } from '../..';
+import { store } from '../../store';
+import { logoutUser } from '../../actions/authActions';
 
 export default function DropMenu() {
+    const handleClick = () => {
+        store.dispatch(logoutUser());
+    };
+
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -46,16 +52,12 @@ export default function DropMenu() {
                             )}
                         </Menu.Item>
                         <Menu.Item>
-                            {({ active }) => (
-                                <a
-                                    href="/logout"
-                                    className={`${
-                                        active ? 'bg-gray-100' : 'text-gray-900'
-                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                                >
-                                    Logout
-                                </a>
-                            )}
+                            <p
+                                onClick={handleClick}
+                                className="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                            >
+                                Logout
+                            </p>
                         </Menu.Item>
                     </div>
                 </Menu.Items>

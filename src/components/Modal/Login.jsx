@@ -29,8 +29,6 @@ class Login extends Component {
     };
 
     render() {
-        // console.log(useSelector((state) => state));
-
         return (
             <form className="pt-4 space-y-6" onSubmit={this.onSubmit}>
                 <FormInput

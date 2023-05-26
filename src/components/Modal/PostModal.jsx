@@ -1,4 +1,4 @@
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { newPost } from '../../actions/postActions';
@@ -92,7 +92,7 @@ class PostModal extends Component {
 PostModal.propTypes = {
     newPost: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
-    user: string,
+    user: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

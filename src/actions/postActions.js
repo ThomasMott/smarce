@@ -9,17 +9,18 @@ import { GET_ERRORS } from './types';
 // ~ .get(`/api/posts?query=${query}`);
 
 export const getPosts = () => (dispatch) => {
-    axios
+    return axios
         .get('/api/posts/all')
         .then((res) => {
-            return res;
+            const posts = res.data.posts;
+            return posts;
         })
-        .catch((err) =>
+        .catch((err) => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data,
-            })
-        );
+            });
+        });
 };
 
 // New post

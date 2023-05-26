@@ -2,11 +2,8 @@ import { Tab } from '@headlessui/react';
 import React from 'react';
 import SignUpForm from './SignUpForm';
 import Login from './Login';
-import { useSelector } from 'react-redux';
 
 export default function LoginModal() {
-    console.log(useSelector((state) => state.auth));
-
     return (
         <Tab.Group defaultIndex={1}>
             <Tab.List className="flex gap-4 mb-2">

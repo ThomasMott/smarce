@@ -1,16 +1,31 @@
 import axios from 'axios';
 import { GET_ERRORS } from './types';
 
-// Get posts
-
 // Add Saved posts
 // ~ .get(`/api/posts/${user}`);
 // Add get by query
 // ~ .get(`/api/posts?query=${query}`);
 
+// Get all posts
 export const getPosts = () => (dispatch) => {
     return axios
-        .get('/api/posts/all')
+        .get('/api/posts/')
+        .then((res) => {
+            const posts = res.data.posts;
+            return posts;
+        })
+        .catch((err) => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data,
+            });
+        });
+};
+
+// Get specific posts
+export const getPost = (id) => (dispatch) => {
+    return axios
+        .get(`/api/posts/${id}`)
         .then((res) => {
             const posts = res.data.posts;
             return posts;

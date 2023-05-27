@@ -15,7 +15,13 @@ export default function HomePage() {
         <main>
             <div className="grid gap-8 grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
                 {posts.map((post, index) => (
-                    <Post key={index} title={post.name} author="TMott inc" rating={5} />
+                    <Post
+                        link={`/post/${post._id.toString()}`}
+                        key={index}
+                        title={post.name}
+                        author="TMott inc"
+                        rating={5}
+                    />
                 ))}
             </div>
         </main>

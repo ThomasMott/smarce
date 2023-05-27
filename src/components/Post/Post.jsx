@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Post({ link, title, author, rating }) {
+export default function Post({ link, title, author, location }) {
     return (
         <a href={link}>
             <div className="h-full w-full">
@@ -17,7 +17,7 @@ export default function Post({ link, title, author, rating }) {
                         <p className="text-lg font-bold text-navy-700">{title}</p>
                         <p className="mt-1 text-sm font-medium text-gray-600">{author}</p>
                     </div>
-                    <div className="flex flex-row-reverse md:mt-2 lg:mt-0">{rating}</div>
+                    <div className="flex flex-row-reverse md:mt-2 lg:mt-0">{location}</div>
                 </div>
             </div>
         </a>
@@ -28,5 +28,5 @@ Post.propTypes = {
     link: PropTypes.string,
     title: PropTypes.string,
     author: PropTypes.string,
-    rating: PropTypes.number,
+    location: PropTypes.string,
 };

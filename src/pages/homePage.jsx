@@ -18,9 +18,9 @@ export default function HomePage() {
                     <Post
                         link={`/post/${post._id.toString()}`}
                         key={index}
-                        title={post.name}
-                        author="TMott inc"
-                        rating={5}
+                        title={post.title}
+                        author={post.name}
+                        location={post.location}
                     />
                 ))}
             </div>

@@ -108,7 +108,7 @@ class PostModal extends Component {
                         <button
                             onClick={this.onClick}
                             type="button"
-                            className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                            className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                         >
                             Delete post
                         </button>

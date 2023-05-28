@@ -33,13 +33,13 @@ class NewPostModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const postData = {
+            user: this.props.user,
             name: this.state.name,
             email: this.state.email,
             title: this.state.title,
             description: this.state.description,
             image: this.state.image,
             location: this.state.location,
-            user: this.props.user,
         };
         this.props.newPost(postData);
     };
@@ -67,7 +67,7 @@ class NewPostModal extends Component {
                 />
                 <FormInput
                     onChange={this.onChange}
-                    label="Post description"
+                    label="Contact email"
                     type="text"
                     name="description"
                     id="description"
@@ -83,7 +83,8 @@ class NewPostModal extends Component {
                     placeholder="Where can it be delivered / collected"
                     isRequired
                 />
-                <Button label="Add new product" />
+                {/* images */}
+                <Button label="Add new post" />
             </form>
         );
     }

@@ -40,7 +40,7 @@ export const getPost = (id) => (dispatch) => {
 
 // New post
 export const newPost = (postData) => (dispatch) => {
-    axios
+    return axios
         .post('/api/posts/new', postData)
         .then((res) => {
             return res;
@@ -54,9 +54,9 @@ export const newPost = (postData) => (dispatch) => {
 };
 
 // Edit post
-export const editPost = (postData) => (dispatch) => {
-    axios
-        .post('/api/posts/edit/{id}', postData)
+export const editPost = (id, postData) => (dispatch) => {
+    return axios
+        .put(`/api/posts/edit/${id}`, postData)
         .then((res) => {
             return res;
         })
@@ -69,9 +69,9 @@ export const editPost = (postData) => (dispatch) => {
 };
 
 // Delete post
-export const deletePost = (postData) => (dispatch) => {
-    axios
-        .post('/api/posts/delete/{id}', postData)
+export const deletePost = (id) => (dispatch) => {
+    return axios
+        .delete(`/api/posts/delete/${id}`)
         .then((res) => {
             return res;
         })

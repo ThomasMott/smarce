@@ -2,7 +2,7 @@ import React from 'react';
 import { ABOUT_PAGE, ACCOUNT_PAGE, HELP_PAGE, HOME_PAGE } from '../..';
 import logo from '../../assets/logo.svg';
 import Modal from '../Modal/Modal';
-import PostModal from '../Modal/PostModal';
+import PostModal from '../Modal/NewPostModal';
 
 export default function Footer() {
     return (

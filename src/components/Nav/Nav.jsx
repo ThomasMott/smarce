@@ -4,7 +4,7 @@ import logo from '../../assets/logo.svg';
 import LoginModal from '../Modal/LoginModal';
 import Modal from '../Modal/Modal';
 import DropMenu from './DropMenu';
-import PostModal from '../Modal/PostModal';
+import PostModal from '../Modal/NewPostModal';
 import { useSelector } from 'react-redux';
 
 export default function Nav() {

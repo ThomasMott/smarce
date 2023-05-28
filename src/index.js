@@ -41,8 +41,8 @@ const router = createBrowserRouter(
                 <Route index element={<HomePage />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="help" element={<HelpPage />} />
-                <Route path="account" element={<AccountPage />}>
-                    <Route index element={<HomePage />} />
+                <Route path="account">
+                    <Route index element={<AccountPage />} />
                     <Route path="post/new" element={<NewPostPage />} />
                     <Route path="post/edit/:id" element={<EditPostPage />} />
                 </Route>

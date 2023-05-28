@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPost } from '../actions/postActions';
+import Button from '../components/Form/Button';
 
 export default function PostPage() {
     const dispatch = useDispatch();
@@ -12,10 +13,16 @@ export default function PostPage() {
         dispatch(getPost(id)).then((res) => setPosts(res));
     }, []);
 
+    const auth = useSelector((state) => state.auth);
+    const user = auth.user.id;
+
     return (
         <div className="px-4 mx-auto max-w-screen-xl sm:py-8 lg:px-6">
             <h1 className="text-xl font-bold mb-2">{posts.title}</h1>
             <p>{posts.description}</p>
+            {user === posts.userId && (
+                <Button href={`/account/post/edit/${id}`} label="Edit post" />
+            )}
             <p className="mb-6">{posts.location}</p>
             <div className="grid gap-4">
                 <div>

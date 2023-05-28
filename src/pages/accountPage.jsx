@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountModal from '../components/Modal/AccountModal';
 import Modal from '../components/Modal/Modal';
-import PostModal from '../components/Modal/PostModal';
+import PostModal from '../components/Modal/NewPostModal';
 import Post from '../components/Post/Post';
 
 export default function AccountPage() {

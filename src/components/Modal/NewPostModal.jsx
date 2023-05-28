@@ -13,7 +13,7 @@ function withMyHook(Component) {
     };
 }
 
-class PostModal extends Component {
+class NewPostModal extends Component {
     constructor() {
         super();
         this.state = {
@@ -89,7 +89,7 @@ class PostModal extends Component {
     }
 }
 
-PostModal.propTypes = {
+NewPostModal.propTypes = {
     newPost: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     user: PropTypes.string,
@@ -99,4 +99,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps, { newPost })(withMyHook(PostModal));
+export default connect(mapStateToProps, { newPost })(withMyHook(NewPostModal));

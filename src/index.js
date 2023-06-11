@@ -17,6 +17,7 @@ import './index.css';
 import AboutPage from './pages/aboutPage';
 import AccountPage from './pages/accountPage';
 import EditPostPage from './pages/editPostPage';
+import EditProfilePage from './pages/editProfilePage';
 import ErrorPage from './pages/errorPage';
 import HelpPage from './pages/helpPage';
 import HomePage from './pages/homePage';
@@ -64,6 +65,7 @@ const router = createBrowserRouter(
                     <Route path=":id" element={<UserPage />} />
                     <Route path="post/new" element={<NewPostPage />} />
                     <Route path="post/edit/:id" element={<EditPostPage />} />
+                    <Route path="edit/:id" element={<EditProfilePage />} />
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
             </Route>

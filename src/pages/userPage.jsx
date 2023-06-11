@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserPosts } from '../actions/postActions';
 import { getUser } from '../actions/userActions';
-import AccountModal from '../components/Modal/AccountModal';
 import Modal from '../components/Modal/Modal';
 import PostModal from '../components/Modal/NewPostModal';
 import Post from '../components/Post/Post';
@@ -20,7 +19,7 @@ export default function UserPage() {
     }, []);
 
     const auth = useSelector((state) => state.auth);
-    const user = auth.user.id;
+    const user = auth.user;
 
     return (
         <section className="max-w-screen-lg mx-auto">
@@ -28,13 +27,8 @@ export default function UserPage() {
                 <div>
                     <h1 className="text-2xl font-semibold mb-6">{users.name}</h1>
                     <p>{users.email}</p>
-                    {user === users.userId && (
-                        <Modal
-                            button="Edit details"
-                            title="Edit details"
-                            size="md"
-                            content={<AccountModal />}
-                        />
+                    {user.id == users._id && (
+                        <a href={`/account/edit/${user.name}`}>Edit account</a>
                     )}
                 </div>
             </div>

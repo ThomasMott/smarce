@@ -6,8 +6,8 @@ export const getUser = (id) => (dispatch) => {
     return axios
         .get(`/api/users/${id}`)
         .then((res) => {
-            // const users = res.data.users;
-            return res;
+            const users = res.data.user;
+            return users;
         })
         .catch((err) => {
             dispatch({

@@ -98,3 +98,18 @@ export const deletePost = (id) => (dispatch) => {
             })
         );
 };
+
+// Delete all user posts (account deleted)
+export const deleteAllPosts = (id) => (dispatch) => {
+    return axios
+        .delete(`/api/posts/delete/all/${id}`)
+        .then((res) => {
+            return res;
+        })
+        .catch((err) =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data,
+            })
+        );
+};

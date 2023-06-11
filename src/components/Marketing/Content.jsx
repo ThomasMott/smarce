@@ -15,7 +15,7 @@ export default function Content({ imgSrc, imgAlt, title, text }) {
                     </div>
                     <div className="grow-0 shrink-0 basis-auto w-full lg:w-6/12 xl:w-8/12">
                         <div className="px-6 py-12 md:px-12">
-                            <h2 className="text-2xl font-bold mb-4 text-green-600">{title}</h2>
+                            <h2 className="text-2xl font-semibold mb-4 text-green-600">{title}</h2>
                             <p className="text-gray-500 mb-6">{text}</p>
                         </div>
                     </div>

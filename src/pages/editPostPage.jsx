@@ -60,7 +60,7 @@ class EditPostModal extends Component {
     render() {
         return (
             <section className="max-w-screen-lg mx-auto">
-                <h1 className="text-xl font-bold mb-2">Edit post</h1>
+                <h1 className="text-xl font-semibold mb-2">Edit post</h1>
                 <form className="pt-4 space-y-6" onSubmit={this.onSubmit}>
                     <FormInput
                         onChange={this.onChange}

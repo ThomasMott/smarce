@@ -60,7 +60,7 @@ export default function Modal({ button, title, content, size }) {
                                 >
                                     <Dialog.Title
                                         as="h3"
-                                        className="font-bold leading-6 text-gray-600"
+                                        className="font-semibold leading-6 text-gray-600"
                                     >
                                         {title}
                                     </Dialog.Title>

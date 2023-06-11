@@ -13,7 +13,7 @@ export default function Hero({ title, text, href, moreHref }) {
                 href={NEW_POST_PAGE}
             />
             <div className="text-center">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                <h1 className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
                     {title}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">{text}</p>

@@ -18,7 +18,7 @@ export default function PostPage() {
 
     return (
         <div className="px-4 mx-auto max-w-screen-xl sm:py-8 lg:px-6">
-            <h1 className="text-xl font-bold mb-2">{posts.title}</h1>
+            <h1 className="text-xl font-semibold mb-2">{posts.title}</h1>
             <p>{posts.description}</p>
             {user === posts.userId && (
                 <Button href={`/account/post/edit/${id}`} label="Edit post" />
@@ -71,13 +71,13 @@ export default function PostPage() {
                 </div>
             </div>
             <div className="mt-6 py-6 border-y border-gray-200">
-                <h2 className="mb-4 font-bold text-lg">Where to collect</h2>
+                <h2 className="mb-4 font-semibold text-lg">Where to collect</h2>
                 <img
                     className="h-auto max-w-full rounded-lg"
                     src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
                     alt=""
                 />
-                <h3 className="mt-4 font-bold text-md">{posts.location}</h3>
+                <h3 className="mt-4 font-semibold text-md">{posts.location}</h3>
             </div>
             <div className="py-6">
                 <a href={`/account/${posts.name}`}>{posts.name}</a>

@@ -14,7 +14,7 @@ export default function Post({ link, title, author, location }) {
                 </div>
                 <div className="flex items-center justify-between px-1 md:items-start">
                     <div>
-                        <p className="text-lg font-bold text-navy-700">{title}</p>
+                        <p className="text-lg font-semibold text-navy-700">{title}</p>
                         <p className="mt-1 text-sm font-medium text-gray-600">{author}</p>
                     </div>
                     <div className="flex flex-row-reverse md:mt-2 lg:mt-0">{location}</div>

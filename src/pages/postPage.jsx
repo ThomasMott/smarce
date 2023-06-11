@@ -80,7 +80,7 @@ export default function PostPage() {
                 <h3 className="mt-4 font-bold text-md">{posts.location}</h3>
             </div>
             <div className="py-6">
-                <h2 className="mb-4 font-bold text-lg">{posts.name}</h2>
+                <a href={`/account/${posts.name}`}>{posts.name}</a>
                 <p>{posts.email}</p>
             </div>
         </div>

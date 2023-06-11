@@ -22,10 +22,26 @@ export const getPosts = () => (dispatch) => {
         });
 };
 
-// Get specific posts
+// Get specific post
 export const getPost = (id) => (dispatch) => {
     return axios
         .get(`/api/posts/${id}`)
+        .then((res) => {
+            const posts = res.data.posts;
+            return posts;
+        })
+        .catch((err) => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data,
+            });
+        });
+};
+
+// Get user posts
+export const getUserPosts = (id) => (dispatch) => {
+    return axios
+        .get(`/api/posts/user/${id}`)
         .then((res) => {
             const posts = res.data.posts;
             return posts;

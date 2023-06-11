@@ -22,7 +22,7 @@ function withMyHook(Component) {
     };
 }
 
-class PostModal extends Component {
+class EditPostModal extends Component {
     constructor() {
         super();
         this.state = {
@@ -49,10 +49,10 @@ class PostModal extends Component {
             user: this.props.user,
             name: this.props.posts.name,
             ...(this.state.email && { email: this.state.email }),
-            ...(this.state.title && { email: this.state.title }),
-            ...(this.state.description && { email: this.state.description }),
-            ...(this.state.image && { email: this.state.image }),
-            ...(this.state.location && { email: this.state.location }),
+            ...(this.state.title && { title: this.state.title }),
+            ...(this.state.description && { description: this.state.description }),
+            ...(this.state.image && { image: this.state.image }),
+            ...(this.state.location && { location: this.state.location }),
         };
         this.props.editPost(this.props.posts._id.toString(), postData);
     };
@@ -79,7 +79,7 @@ class PostModal extends Component {
                         name="description"
                         id="description"
                         placeholder="A short description of what you have"
-                        value={this.props.posts.email}
+                        value={this.props.posts.description}
                         isRequired
                     />
                     <FormInput
@@ -89,7 +89,7 @@ class PostModal extends Component {
                         name="email"
                         id="email"
                         placeholder="email@example.com"
-                        value={this.props.posts.description}
+                        value={this.props.posts.email}
                         isRequired
                     />
                     <FormInput
@@ -119,10 +119,10 @@ class PostModal extends Component {
     }
 }
 
-PostModal.propTypes = {
+EditPostModal.propTypes = {
     deletePost: PropTypes.func.isRequired,
     editPost: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired,
+    errors: PropTypes.string,
     user: PropTypes.string,
     posts: PropTypes.object,
 };
@@ -131,4 +131,6 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getPost, editPost, deletePost })(withMyHook(PostModal));
+export default connect(mapStateToProps, { getPost, editPost, deletePost })(
+    withMyHook(EditPostModal)
+);

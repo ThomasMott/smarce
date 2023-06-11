@@ -8,7 +8,8 @@ import FormInput from '../Form/FormInput';
 function withMyHook(Component) {
     return function WrappedComponent(props) {
         const auth = useSelector((state) => state.auth);
-        const user = auth.user.id;
+        const user = auth.user;
+
         return <Component {...props} user={user} />;
     };
 }
@@ -17,7 +18,6 @@ class NewPostModal extends Component {
     constructor() {
         super();
         this.state = {
-            name: '',
             email: '',
             title: '',
             description: '',
@@ -33,8 +33,8 @@ class NewPostModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const postData = {
-            user: this.props.user,
-            name: this.state.name,
+            user: this.props.user.id,
+            name: this.props.user.name,
             email: this.state.email,
             title: this.state.title,
             description: this.state.description,
@@ -93,7 +93,7 @@ class NewPostModal extends Component {
 NewPostModal.propTypes = {
     newPost: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
-    user: PropTypes.string,
+    user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

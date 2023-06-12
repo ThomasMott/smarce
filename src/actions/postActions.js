@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS } from './types';
+import toast from 'react-hot-toast';
 
 // Add Saved posts
 // ~ .get(`/api/posts/${user}`);
@@ -7,7 +7,7 @@ import { GET_ERRORS } from './types';
 // ~ .get(`/api/posts?query=${query}`);
 
 // Get all posts
-export const getPosts = () => (dispatch) => {
+export const getPosts = () => () => {
     return axios
         .get('/api/posts/')
         .then((res) => {
@@ -15,15 +15,12 @@ export const getPosts = () => (dispatch) => {
             return posts;
         })
         .catch((err) => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            });
+            toast(err.response.data);
         });
 };
 
 // Get specific post
-export const getPost = (id) => (dispatch) => {
+export const getPost = (id) => () => {
     return axios
         .get(`/api/posts/${id}`)
         .then((res) => {
@@ -31,15 +28,12 @@ export const getPost = (id) => (dispatch) => {
             return posts;
         })
         .catch((err) => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            });
+            toast(err.response.data);
         });
 };
 
 // Get user posts
-export const getUserPosts = (id) => (dispatch) => {
+export const getUserPosts = (id) => () => {
     return axios
         .get(`/api/posts/user/${id}`)
         .then((res) => {
@@ -47,69 +41,57 @@ export const getUserPosts = (id) => (dispatch) => {
             return posts;
         })
         .catch((err) => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            });
+            toast(err.response.data);
         });
 };
 
 // New post
-export const newPost = (postData) => (dispatch) => {
+export const newPost = (postData) => () => {
     return axios
         .post('/api/posts/new', postData)
         .then((res) => {
+            toast('Successfully created post');
             return res;
         })
-        .catch((err) =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            })
-        );
+        .catch((err) => {
+            toast(err.response.data);
+        });
 };
 
 // Edit post
-export const editPost = (id, postData) => (dispatch) => {
+export const editPost = (id, postData) => () => {
     return axios
         .put(`/api/posts/edit/${id}`, postData)
         .then((res) => {
+            toast('Successfully updated post');
             return res;
         })
-        .catch((err) =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            })
-        );
+        .catch((err) => {
+            toast(err.response.data);
+        });
 };
 
 // Delete post
-export const deletePost = (id) => (dispatch) => {
+export const deletePost = (id) => () => {
     return axios
         .delete(`/api/posts/delete/${id}`)
         .then((res) => {
+            toast('Successfully deleted post');
             return res;
         })
-        .catch((err) =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            })
-        );
+        .catch((err) => {
+            toast(err.response.data);
+        });
 };
 
-// Delete all user posts (account deleted)
-export const deleteAllPosts = (id) => (dispatch) => {
+// Delete all user posts (triggers when account deleted)
+export const deleteAllPosts = (id) => () => {
     return axios
         .delete(`/api/posts/delete/all/${id}`)
         .then((res) => {
             return res;
         })
-        .catch((err) =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            })
-        );
+        .catch((err) => {
+            toast(err.response.data);
+        });
 };

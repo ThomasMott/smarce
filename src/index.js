@@ -2,6 +2,7 @@ import jwt_decode from 'jwt-decode';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import { Provider, useSelector } from 'react-redux';
 import {
     Navigate,
@@ -32,7 +33,7 @@ import PostPage from './pages/postPage';
 import UserPage from './pages/userPage';
 import Root from './routes/root';
 
-/* define page routes */
+/* page routes */
 export const ABOUT_PAGE = '/about';
 export const ACCOUNT_PAGE = '/account';
 export const EDIT_POST_PAGE = 'account/post/edit/';
@@ -100,6 +101,7 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
+        <Toaster />
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <RouterProvider router={router} />

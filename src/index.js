@@ -1,15 +1,21 @@
+import jwt_decode from 'jwt-decode';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import {
-    createBrowserRouter,
-    createRoutesFromElements,
+    Navigate,
+    Outlet,
     Route,
     RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
 } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
+import { logoutUser, setCurrentUser } from './actions/authActions';
 import reportWebVitals from './reportWebVitals';
 import { persistor, store } from './store';
+import setAuthToken from './utils/setAuthToken';
 
 import './index.css';
 
@@ -35,22 +41,39 @@ export const HOME_PAGE = '/';
 export const NEW_POST_PAGE = 'account/post/new';
 export const POST_PAGE = '/post/';
 
-// Check for token to keep user logged in
-// if (localStorage.jwtToken) {
-//     // Set auth token header auth
-//     const token = localStorage.jwtToken;
-//     setAuthToken(token);
-//     // Decode token and get user info and exp
-//     const decoded = jwt_decode(token);
-//     // Set user and isAuthenticated
-//     store.dispatch(setCurrentUser(decoded)); // Check for expired token
-//     const currentTime = Date.now() / 1000; // to get in milliseconds
-//     if (decoded.exp < currentTime) {
-//         // Logout user
-//         store.dispatch(logoutUser()); // Redirect to login
-//         window.location.href = './login';
-//     }
-// }
+/* Check for token to keep user logged in */
+if (localStorage.jwtToken) {
+    // Set auth token header auth
+    const token = localStorage.jwtToken;
+    setAuthToken(token);
+    // Decode token and get user info and exp
+    const decoded = jwt_decode(token);
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded)); // Check for expired token
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+    if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser()); // Redirect to login
+        window.location.href = './login';
+    }
+}
+
+/* protected route */
+const ProtectedRoute = ({ redirectPath = '/', children }) => {
+    const auth = useSelector((state) => state.auth);
+    const user = auth.user.id;
+
+    if (!user) {
+        return <Navigate to={redirectPath} replace />;
+    }
+
+    return children ? children : <Outlet />;
+};
+
+ProtectedRoute.propTypes = {
+    redirectPath: PropTypes.string,
+    children: PropTypes.element,
+};
 
 /* set up page routes */
 const router = createBrowserRouter(
@@ -60,12 +83,14 @@ const router = createBrowserRouter(
                 <Route index element={<HomePage />} />
                 <Route path="about" element={<AboutPage />} />
                 <Route path="help" element={<HelpPage />} />
-                <Route path="account">
-                    <Route index element={<AccountPage />} />
-                    <Route path=":id" element={<UserPage />} />
-                    <Route path="post/new" element={<NewPostPage />} />
-                    <Route path="post/edit/:id" element={<EditPostPage />} />
-                    <Route path="edit/:id" element={<EditProfilePage />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="account">
+                        <Route index element={<AccountPage />} />
+                        <Route path=":id" element={<UserPage />} />
+                        <Route path="post/new" element={<NewPostPage />} />
+                        <Route path="post/edit/:id" element={<EditPostPage />} />
+                        <Route path="edit/:id" element={<EditProfilePage />} />
+                    </Route>
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
             </Route>

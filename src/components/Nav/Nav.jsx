@@ -20,7 +20,7 @@ export default function Nav() {
                 </div>
                 <div className="items-center justify-between w-full flex w-auto" id="navbar-sticky">
                     <ul className="flex">
-                        <li className="mr-4">
+                        <li className="mx-4">
                             <a href={HOME_PAGE}>Home</a>
                         </li>
                         <li>
@@ -28,10 +28,17 @@ export default function Nav() {
                         </li>
                     </ul>
                 </div>
-                <div className="flex w-60">
-                    <Modal button="Add post" title="New Post" size="2xl" content={<PostModal />} />
+                <div className="flex w-full flex-row-reverse">
                     {auth.isAuthenticated ? (
-                        <DropMenu />
+                        <>
+                            <DropMenu />
+                            <Modal
+                                button="Add post"
+                                title="New Post"
+                                size="2xl"
+                                content={<PostModal />}
+                            />
+                        </>
                     ) : (
                         <Modal button="Login" size="md" content={<LoginModal />} />
                     )}

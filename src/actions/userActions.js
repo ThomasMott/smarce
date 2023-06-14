@@ -18,9 +18,8 @@ export const getUser = (id) => () => {
 export const editUser = (id, userData) => () => {
     return axios
         .put(`/api/users/edit/${id}`, userData)
-        .then((res) => {
-            toast('Successfully updated user');
-            return res;
+        .then(() => {
+            window.location.replace('/?user=updated');
         })
         .catch((err) => {
             toast(err.response.data);
@@ -31,9 +30,8 @@ export const editUser = (id, userData) => () => {
 export const deleteUser = (id) => () => {
     return axios
         .delete(`/api/users/delete/${id}`)
-        .then((res) => {
-            toast('Successfully deleted user');
-            return res;
+        .then(() => {
+            window.location.replace('/?user=deleted');
         })
         .catch((err) => {
             toast(err.response.data);

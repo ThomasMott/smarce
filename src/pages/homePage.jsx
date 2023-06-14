@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Post from '../components/Post/Post';
-import { getPosts } from '../actions/postActions';
 import { useDispatch } from 'react-redux';
+import { getPosts } from '../actions/postActions';
+import Post from '../components/Post/Post';
+import { getPostParams, getUserParams } from '../actions/urlActions';
 
 export default function HomePage() {
     const dispatch = useDispatch();
@@ -9,6 +10,8 @@ export default function HomePage() {
 
     useEffect(() => {
         dispatch(getPosts()).then((res) => setPosts(res));
+        getPostParams();
+        getUserParams();
     }, []);
 
     return (

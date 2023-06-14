@@ -49,9 +49,8 @@ export const getUserPosts = (id) => () => {
 export const newPost = (postData) => () => {
     return axios
         .post('/api/posts/new', postData)
-        .then((res) => {
-            toast('Successfully created post');
-            return res;
+        .then(() => {
+            window.location.replace('/?post=new');
         })
         .catch((err) => {
             toast(err.response.data);
@@ -62,9 +61,8 @@ export const newPost = (postData) => () => {
 export const editPost = (id, postData) => () => {
     return axios
         .put(`/api/posts/edit/${id}`, postData)
-        .then((res) => {
-            toast('Successfully updated post');
-            return res;
+        .then(() => {
+            window.location.replace(`/post/${id}?post=updated`);
         })
         .catch((err) => {
             toast(err.response.data);
@@ -75,9 +73,8 @@ export const editPost = (id, postData) => () => {
 export const deletePost = (id) => () => {
     return axios
         .delete(`/api/posts/delete/${id}`)
-        .then((res) => {
-            toast('Successfully deleted post');
-            return res;
+        .then(() => {
+            window.location.replace('/?post=deleted');
         })
         .catch((err) => {
             toast(err.response.data);
@@ -86,12 +83,7 @@ export const deletePost = (id) => () => {
 
 // Delete all user posts (triggers when account deleted)
 export const deleteAllPosts = (id) => () => {
-    return axios
-        .delete(`/api/posts/delete/all/${id}`)
-        .then((res) => {
-            return res;
-        })
-        .catch((err) => {
-            toast(err.response.data);
-        });
+    return axios.delete(`/api/posts/delete/all/${id}`).catch((err) => {
+        toast(err.response.data);
+    });
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPost } from '../actions/postActions';
+import { getPostParams } from '../actions/urlActions';
 import Button from '../components/Form/Button';
 
 export default function PostPage() {
@@ -11,6 +12,7 @@ export default function PostPage() {
 
     useEffect(() => {
         dispatch(getPost(id)).then((res) => setPosts(res));
+        getPostParams();
     }, []);
 
     const auth = useSelector((state) => state.auth);

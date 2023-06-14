@@ -1,7 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import toast from 'react-hot-toast';
-import { redirect } from 'react-router-dom';
 import setAuthToken from '../utils/setAuthToken';
 
 import { SET_CURRENT_USER, USER_LOADING } from './types';
@@ -11,9 +10,7 @@ export const registerUser = (userData) => () => {
     axios
         .post('/api/users/register', userData)
         .then(() => {
-            toast('Successfully created user');
-            // redir not working
-            return redirect('/');
+            window.location.replace('/?user=created');
         }) // re-direct to login on successful register
         .catch((err) => {
             toast(err.response.data);
@@ -35,8 +32,6 @@ export const loginUser = (userData) => (dispatch) => {
             // Set current user
             dispatch(setCurrentUser(decoded));
             toast('Successfully logged in');
-            // redir not working
-            return redirect('/');
         })
         .catch((err) => {
             toast(err.response.data);
@@ -66,5 +61,5 @@ export const logoutUser = () => (dispatch) => {
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
-    toast('Successfully logged out');
+    window.location.replace('/?user=logout');
 };

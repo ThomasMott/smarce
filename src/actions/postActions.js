@@ -46,14 +46,15 @@ export const getUserPosts = (id) => () => {
 };
 
 // New post
-export const newPost = (postData) => () => {
+export const newPost = (postData, config) => () => {
     return axios
-        .post('/api/posts/new', postData)
+        .post('/api/posts/new', postData, config)
         .then(() => {
             window.location.replace('/?post=new');
         })
         .catch((err) => {
-            toast(err.response.data);
+            // toast(err.response.data);
+            console.log(err.response.data);
         });
 };
 

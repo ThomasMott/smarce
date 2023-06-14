@@ -21,7 +21,7 @@ class NewPostModal extends Component {
             email: '',
             title: '',
             description: '',
-            image: '',
+            image: {},
             location: '',
         };
     }
@@ -30,18 +30,32 @@ class NewPostModal extends Component {
         this.setState({ [e.target.id]: e.target.value });
     };
 
+    onChangeImage = (e) => {
+        this.setState({ [e.target.id]: e.target.files[0] });
+        console.log(e.target.files[0]);
+        console.log(this.state.image);
+    };
+
     onSubmit = (e) => {
         e.preventDefault();
-        const postData = {
-            user: this.props.user.id,
-            name: this.props.user.name,
-            email: this.state.email,
-            title: this.state.title,
-            description: this.state.description,
-            image: this.state.image,
-            location: this.state.location,
+        const postData = new FormData();
+        postData.append('user', this.props.user.id);
+        postData.append('name', this.props.user.name);
+        postData.append('email', 'test@email.com');
+        postData.append('title', 'tit');
+        postData.append('description', 'desc');
+        postData.append('image', this.state.image);
+        postData.append('location', 'loc');
+
+        console.log(postData);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
         };
-        this.props.newPost(postData);
+
+        this.props.newPost(postData, config);
     };
 
     render() {
@@ -67,7 +81,7 @@ class NewPostModal extends Component {
                 />
                 <FormInput
                     onChange={this.onChange}
-                    label="Contact email"
+                    label="description"
                     type="text"
                     name="description"
                     id="description"
@@ -83,7 +97,13 @@ class NewPostModal extends Component {
                     placeholder="Where can it be delivered / collected"
                     isRequired
                 />
-                {/* images */}
+                <input
+                    type="file"
+                    id="image"
+                    accept=".png, .jpg, .jpeg"
+                    name="image"
+                    onChange={this.onChangeImage}
+                />
                 <Button label="Add new post" />
             </form>
         );

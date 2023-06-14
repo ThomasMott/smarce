@@ -28,7 +28,6 @@ import EditProfilePage from './pages/editProfilePage';
 import ErrorPage from './pages/errorPage';
 import HelpPage from './pages/helpPage';
 import HomePage from './pages/homePage';
-import NewPostPage from './pages/newPostPage';
 import PostPage from './pages/postPage';
 import UserPage from './pages/userPage';
 import Root from './routes/root';
@@ -88,7 +87,6 @@ const router = createBrowserRouter(
                     <Route path="account">
                         <Route index element={<AccountPage />} />
                         <Route path=":id" element={<UserPage />} />
-                        <Route path="post/new" element={<NewPostPage />} />
                         <Route path="post/edit/:id" element={<EditPostPage />} />
                         <Route path="edit/:id" element={<EditProfilePage />} />
                     </Route>

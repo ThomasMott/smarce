@@ -21,7 +21,7 @@ class NewPostModal extends Component {
             email: '',
             title: '',
             description: '',
-            image: {},
+            image: '',
             location: '',
         };
     }
@@ -32,8 +32,6 @@ class NewPostModal extends Component {
 
     onChangeImage = (e) => {
         this.setState({ [e.target.id]: e.target.files[0] });
-        console.log(e.target.files[0]);
-        console.log(this.state.image);
     };
 
     onSubmit = (e) => {
@@ -41,13 +39,11 @@ class NewPostModal extends Component {
         const postData = new FormData();
         postData.append('user', this.props.user.id);
         postData.append('name', this.props.user.name);
-        postData.append('email', 'test@email.com');
-        postData.append('title', 'tit');
-        postData.append('description', 'desc');
+        postData.append('email', this.state.email);
+        postData.append('title', this.state.title);
+        postData.append('description', this.state.description);
         postData.append('image', this.state.image);
-        postData.append('location', 'loc');
-
-        console.log(postData);
+        postData.append('location', this.state.location);
 
         const config = {
             headers: {

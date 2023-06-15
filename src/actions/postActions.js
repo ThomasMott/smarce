@@ -59,9 +59,9 @@ export const newPost = (postData, config) => () => {
 };
 
 // Edit post
-export const editPost = (id, postData) => () => {
+export const editPost = (id, postData, config) => () => {
     return axios
-        .put(`/api/posts/edit/${id}`, postData)
+        .put(`/api/posts/edit/${id}`, postData, config)
         .then(() => {
             window.location.replace(`/post/${id}?post=updated`);
         })
@@ -78,13 +78,15 @@ export const deletePost = (id) => () => {
             window.location.replace('/?post=deleted');
         })
         .catch((err) => {
-            toast(err.response.data);
+            // toast(err.response.data);
+            console.log(err.response.data);
         });
 };
 
 // Delete all user posts (triggers when account deleted)
 export const deleteAllPosts = (id) => () => {
     return axios.delete(`/api/posts/delete/all/${id}`).catch((err) => {
-        toast(err.response.data);
+        // toast(err.response.data);
+        console.log(err.response.data);
     });
 };

@@ -33,7 +33,6 @@ class EditProfilePage extends Component {
             name: '',
             email: '',
             password: '',
-            image: '',
         };
     }
 
@@ -88,7 +87,6 @@ class EditProfilePage extends Component {
                         id="password2"
                         placeholder="••••••••"
                     />
-                    {/* profile image */}
                     <div className="flex gap-4">
                         <Button label="Update profile" />
                         <button

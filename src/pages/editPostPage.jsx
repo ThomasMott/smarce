@@ -17,7 +17,7 @@ function withMyHook(Component) {
         }, []);
 
         const auth = useSelector((state) => state.auth);
-        const user = auth.user.id;
+        const user = auth.user;
         return <Component {...props} posts={posts} user={user} />;
     };
 }
@@ -43,18 +43,28 @@ class EditPostModal extends Component {
         this.props.deletePost(this.props.posts._id.toString());
     };
 
+    onChangeImage = (e) => {
+        this.setState({ [e.target.id]: e.target.files[0] });
+    };
+
     onSubmit = (e) => {
         e.preventDefault();
-        const postData = {
-            user: this.props.user,
-            name: this.props.posts.name,
-            ...(this.state.email && { email: this.state.email }),
-            ...(this.state.title && { title: this.state.title }),
-            ...(this.state.description && { description: this.state.description }),
-            ...(this.state.image && { image: this.state.image }),
-            ...(this.state.location && { location: this.state.location }),
+        const postData = new FormData();
+        postData.append('user', this.props.user.id);
+        postData.append('name', this.props.user.name);
+        if (this.state.email) postData.append('email', this.state.email);
+        if (this.state.title) postData.append('title', this.state.title);
+        if (this.state.description) postData.append('description', this.state.description);
+        if (this.state.image) postData.append('image', this.state.image);
+        if (this.state.location) postData.append('location', this.state.location);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
         };
-        this.props.editPost(this.props.posts._id.toString(), postData);
+
+        this.props.editPost(this.props.posts._id.toString(), postData, config);
     };
 
     render() {
@@ -102,7 +112,13 @@ class EditPostModal extends Component {
                         value={this.props.posts.location}
                         isRequired
                     />
-                    {/* images */}
+                    <input
+                        type="file"
+                        id="image"
+                        accept=".png, .jpg, .jpeg"
+                        name="image"
+                        onChange={this.onChangeImage}
+                    />
                     <div className="flex gap-4">
                         <Button label="Update post" />
                         <button

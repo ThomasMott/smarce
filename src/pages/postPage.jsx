@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { timeSince } from '../utils/timeset';
 import { getPost } from '../actions/postActions';
 import { getPostParams } from '../actions/urlActions';
 import Button from '../components/Form/Button';
@@ -21,6 +22,7 @@ export default function PostPage() {
     return (
         <div className="px-4 mx-auto max-w-screen-xl sm:py-8 lg:px-6">
             <h1 className="text-xl font-semibold mb-2">{posts.title}</h1>
+            <p>{timeSince(posts.date)}</p>
             <p>{posts.description}</p>
             {user === posts.userId && (
                 <Button href={`/account/post/edit/${id}`} label="Edit post" />
@@ -34,7 +36,7 @@ export default function PostPage() {
                         alt=""
                     />
                 </div>
-                <div className="grid grid-cols-5 gap-4">
+                {/* <div className="grid grid-cols-5 gap-4">
                     <div>
                         <img
                             className="h-auto max-w-full rounded-lg"
@@ -70,7 +72,7 @@ export default function PostPage() {
                             alt=""
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="mt-6 py-6 border-y border-gray-200">
                 <h2 className="mb-4 font-semibold text-lg">Where to collect</h2>

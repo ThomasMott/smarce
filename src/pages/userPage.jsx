@@ -6,16 +6,21 @@ import { getUser } from '../actions/userActions';
 import Modal from '../components/Modal/Modal';
 import PostModal from '../components/Modal/NewPostModal';
 import Post from '../components/Post/Post';
+import Skeleton from '../components/Skeleton/Skeleton';
 
 export default function UserPage() {
     const dispatch = useDispatch();
     const [users, setUsers] = useState({});
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
         dispatch(getUser(id)).then((res) => setUsers(res));
-        dispatch(getUserPosts(id)).then((res) => setPosts(res));
+        dispatch(getUserPosts(id)).then((res) => {
+            setPosts(res);
+            setLoading(false);
+        });
     }, []);
 
     const auth = useSelector((state) => state.auth);
@@ -37,6 +42,7 @@ export default function UserPage() {
                 <Modal button="Add post" title="New Post" size="2xl" content={<PostModal />} />
             </div>
             <div className="grid gap-8 grid-flow-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+                {loading && <Skeleton number={3} />}
                 {posts &&
                     posts.map((post, index) => (
                         <Post

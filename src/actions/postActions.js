@@ -15,7 +15,7 @@ export const getPosts = () => () => {
             return posts;
         })
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -28,7 +28,7 @@ export const getPost = (id) => () => {
             return posts;
         })
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -41,7 +41,7 @@ export const getUserPosts = (id) => () => {
             return posts;
         })
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -53,8 +53,7 @@ export const newPost = (postData, config) => () => {
             window.location.replace('/?post=new');
         })
         .catch((err) => {
-            // toast(err.response.data);
-            console.log(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -66,7 +65,7 @@ export const editPost = (id, postData, config) => () => {
             window.location.replace(`/post/${id}?post=updated`);
         })
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -78,15 +77,13 @@ export const deletePost = (id) => () => {
             window.location.replace('/?post=deleted');
         })
         .catch((err) => {
-            // toast(err.response.data);
-            console.log(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
 // Delete all user posts (triggers when account deleted)
 export const deleteAllPosts = (id) => () => {
     return axios.delete(`/api/posts/delete/all/${id}`).catch((err) => {
-        // toast(err.response.data);
-        console.log(err.response.data);
+        toast(err.response.data.msg);
     });
 };

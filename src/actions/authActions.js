@@ -13,7 +13,7 @@ export const registerUser = (userData) => () => {
             window.location.replace('/?user=created');
         }) // re-direct to login on successful register
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 
@@ -34,7 +34,7 @@ export const loginUser = (userData) => (dispatch) => {
             toast('Successfully logged in');
         })
         .catch((err) => {
-            toast(err.response.data);
+            toast(err.response.data.msg);
         });
 };
 

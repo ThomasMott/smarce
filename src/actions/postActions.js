@@ -7,9 +7,9 @@ import toast from 'react-hot-toast';
 // ~ .get(`/api/posts?query=${query}`);
 
 // Get all posts
-export const getPosts = () => () => {
+export const getPosts = (params) => () => {
     return axios
-        .get('/api/posts/')
+        .get('/api/posts/', { params: params })
         .then((res) => {
             const posts = res.data.posts;
             return posts;

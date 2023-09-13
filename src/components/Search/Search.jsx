@@ -8,8 +8,8 @@ export default function Search() {
             </label>
             <input
                 type="text"
-                id="l"
-                name="l"
+                id="p"
+                name="p"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5"
                 placeholder="Search postcode"
                 required

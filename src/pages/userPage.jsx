@@ -53,6 +53,7 @@ export default function UserPage() {
                             title={post.title}
                             author={post.name}
                             location={post.location}
+                            image={post.image}
                         />
                     ))}
             </div>

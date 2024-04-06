@@ -109,7 +109,7 @@ class EditPostModal extends Component {
                         name="location"
                         id="location"
                         placeholder="Where can it be delivered / collected"
-                        value={this.props.posts.location}
+                        value={this.props.posts.pcode}
                         isRequired
                     />
                     <input

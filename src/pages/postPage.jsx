@@ -29,17 +29,23 @@ export default function PostPage() {
                 )}
             </div>
             <p>{timeSince(posts.date)}</p>
-            {/* <p className="mb-6">{posts.location}</p> */}
+            <p className="mb-6">{posts.pcode}</p>
             <div className="grid grid-cols-4 gap-4 pt-4">
-                {posts.image && (
-                    <div className="col-span-3">
+                <div className="col-span-3">
+                    {posts.image ? (
                         <img
                             className="object-cover h-full w-full rounded-lg"
                             src={`${serverBaseURI}/${posts.image}`}
                             alt="post material"
                         />
-                    </div>
-                )}
+                    ) : (
+                        <img
+                            src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/Nft3.3b3e6a4b3ada7618de6c.png"
+                            className="opacity-60 object-cover h-full w-full rounded-lg"
+                            alt="image"
+                        />
+                    )}
+                </div>
                 <div className="flex flex-col gap-4">
                     <div>
                         <img
@@ -67,7 +73,7 @@ export default function PostPage() {
                     src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
                     alt=""
                 />
-                {/* <h3 className="mt-4 font-semibold text-md">{posts.location}</h3> */}
+                <h3 className="mt-4 font-semibold text-md">{posts.pcode}</h3>
             </div>
             <div className="py-6">
                 <a href={`/account/${posts.name}`}>{posts.name}</a>

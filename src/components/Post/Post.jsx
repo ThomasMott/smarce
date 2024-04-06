@@ -4,7 +4,7 @@ import { getMiles } from '../../utils/distanceConversion';
 
 export default function Post({ link, title, author, image, distance }) {
     const serverBaseURI = 'http://localhost:5000'; // set this to the value of express server
-
+    console.log(image);
     return (
         <a href={link}>
             <div className="h-full w-full">
@@ -18,7 +18,7 @@ export default function Post({ link, title, author, image, distance }) {
                     ) : (
                         <img
                             src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/Nft3.3b3e6a4b3ada7618de6c.png"
-                            className="object-cover mb-3 h-64 w-full rounded-xl 3xl:h-full 3xl:w-full"
+                            className="opacity-60 object-cover mb-3 h-64 w-full rounded-xl 3xl:h-full 3xl:w-full"
                             alt="image"
                         />
                     )}

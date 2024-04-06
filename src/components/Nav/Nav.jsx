@@ -6,6 +6,7 @@ import Modal from '../Modal/Modal';
 import DropMenu from './DropMenu';
 import PostModal from '../Modal/NewPostModal';
 import { useSelector } from 'react-redux';
+import Search from '../Search/Search';
 
 export default function Nav() {
     const auth = useSelector((state) => state.auth);
@@ -27,6 +28,9 @@ export default function Nav() {
                             <a href={ABOUT_PAGE}>About</a>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    <Search />
                 </div>
                 <div className="flex w-full flex-row-reverse">
                     {auth.isAuthenticated ? (

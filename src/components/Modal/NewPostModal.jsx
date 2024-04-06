@@ -40,6 +40,7 @@ class NewPostModal extends Component {
         postData.append('user', this.props.user.id);
         postData.append('name', this.props.user.name);
         postData.append('email', this.state.email);
+        postData.append('category', this.state.category);
         postData.append('title', this.state.title);
         postData.append('description', this.state.description);
         postData.append('image', this.state.image);
@@ -68,11 +69,21 @@ class NewPostModal extends Component {
                 />
                 <FormInput
                     onChange={this.onChange}
-                    label="Post description"
+                    label="Email"
                     type="text"
                     name="email"
                     id="email"
                     placeholder="email@example.com"
+                    isRequired
+                />
+                <FormInput
+                    onChange={this.onChange}
+                    label="Category"
+                    type="category"
+                    name="category"
+                    id="category"
+                    placeholder="wood"
+                    value="wood"
                     isRequired
                 />
                 <FormInput

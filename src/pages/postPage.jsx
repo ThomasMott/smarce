@@ -10,6 +10,7 @@ export default function PostPage() {
     const dispatch = useDispatch();
     const [posts, setPosts] = useState({});
     const { id } = useParams();
+    const serverBaseURI = 'http://localhost:5000'; // set this to the value of express server
 
     useEffect(() => {
         dispatch(getPost(id)).then((res) => setPosts(res));
@@ -21,22 +22,31 @@ export default function PostPage() {
 
     return (
         <div className="px-4 mx-auto max-w-screen-xl sm:py-8 lg:px-6">
-            <h1 className="text-xl font-semibold mb-2">{posts.title}</h1>
+            <div className="flex justify-between gap-3 items-center">
+                <h1 className="capitalize text-xl font-semibold mb-2">{posts.title}</h1>
+                {user === posts.userId && (
+                    <Button href={`/account/post/edit/${id}`} label="Edit post" />
+                )}
+            </div>
             <p>{timeSince(posts.date)}</p>
-            <p>{posts.description}</p>
-            {user === posts.userId && (
-                <Button href={`/account/post/edit/${id}`} label="Edit post" />
-            )}
-            <p className="mb-6">{posts.location}</p>
-            <div className="grid gap-4">
-                <div>
-                    <img
-                        className="h-auto max-w-full rounded-lg"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
-                        alt=""
-                    />
+            <p className="mb-6">{posts.pcode}</p>
+            <div className="grid grid-cols-4 gap-4 pt-4">
+                <div className="col-span-3">
+                    {posts.image ? (
+                        <img
+                            className="object-cover h-full w-full rounded-lg"
+                            src={`${serverBaseURI}/${posts.image}`}
+                            alt="post material"
+                        />
+                    ) : (
+                        <img
+                            src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/Nft3.3b3e6a4b3ada7618de6c.png"
+                            className="opacity-60 object-cover h-full w-full rounded-lg"
+                            alt="image"
+                        />
+                    )}
                 </div>
-                {/* <div className="grid grid-cols-5 gap-4">
+                <div className="flex flex-col gap-4">
                     <div>
                         <img
                             className="h-auto max-w-full rounded-lg"
@@ -51,28 +61,10 @@ export default function PostPage() {
                             alt=""
                         />
                     </div>
-                    <div>
-                        <img
-                            className="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            className="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            className="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
-                            alt=""
-                        />
-                    </div>
-                </div> */}
+                </div>
+            </div>
+            <div className="mt-6 pt-6 border-t border-gray-200">
+                <p>{posts.description}</p>
             </div>
             <div className="mt-6 py-6 border-y border-gray-200">
                 <h2 className="mb-4 font-semibold text-lg">Where to collect</h2>
@@ -81,7 +73,7 @@ export default function PostPage() {
                     src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
                     alt=""
                 />
-                <h3 className="mt-4 font-semibold text-md">{posts.location}</h3>
+                <h3 className="mt-4 font-semibold text-md">{posts.pcode}</h3>
             </div>
             <div className="py-6">
                 <a href={`/account/${posts.name}`}>{posts.name}</a>

@@ -28,7 +28,7 @@ export default function HomePage() {
             //check for tags
             if (query.get('t')) {
                 // if postcode then append to params
-                params.append('t', query.get('p'));
+                params.append('t', query.get('t'));
             }
 
             // check if postcode supplied, if not attempt to use browser location

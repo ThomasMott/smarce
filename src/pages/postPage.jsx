@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { timeSince } from '../utils/timeset';
 import { getPost } from '../actions/postActions';
 import { getPostParams } from '../actions/urlActions';
 import Button from '../components/Form/Button';
+import Map from '../components/Map/Map';
+import { timeSince } from '../utils/timeset';
 
 export default function PostPage() {
     const dispatch = useDispatch();
@@ -68,11 +69,7 @@ export default function PostPage() {
             </div>
             <div className="mt-6 py-6 border-y border-gray-200">
                 <h2 className="mb-4 font-semibold text-lg">Where to collect</h2>
-                <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg"
-                    alt=""
-                />
+                <Map />
                 <h3 className="mt-4 font-semibold text-md">{posts.pcode}</h3>
             </div>
             <div className="py-6">

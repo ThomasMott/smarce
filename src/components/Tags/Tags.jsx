@@ -1,18 +1,8 @@
 import React from 'react';
 import Tag from './Tag';
+import { tagList } from './TagList';
 
 export default function Tags() {
-    const tagsList = [
-        {
-            name: 'metal',
-            value: 'metal',
-        },
-        {
-            name: 'wood',
-            value: 'wood',
-        },
-    ];
-
     const onClick = (e) => {
         const tagVal = e.target.dataset.value;
         const searchParams = new URLSearchParams(window.location.search);
@@ -22,7 +12,7 @@ export default function Tags() {
 
     return (
         <div className="my-6 flex gap-4">
-            {tagsList.map(function (data, index) {
+            {tagList.map(function (data, index) {
                 return (
                     <Tag
                         key={`${data.value}-${index}`}

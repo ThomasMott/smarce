@@ -29,9 +29,7 @@ export default function PostPage() {
                     <Button href={`/account/post/edit/${id}`} label="Edit post" />
                 )}
             </div>
-            <p>{timeSince(posts.date)}</p>
-            <p className="mb-6">{posts.pcode}</p>
-            <div className="grid grid-cols-4 gap-4 pt-4">
+            <div className="grid grid-cols-4 gap-6 pt-4">
                 <div className="col-span-3">
                     {posts.image ? (
                         <img
@@ -48,33 +46,30 @@ export default function PostPage() {
                     )}
                 </div>
                 <div className="flex flex-col gap-4">
-                    <div>
-                        <img
-                            className="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                            alt=""
-                        />
+                    <div className="mt-6">
+                        <h2 className="font-semibold text-lg">About</h2>
+                        <p>{posts.description}</p>
                     </div>
-                    <div>
-                        <img
-                            className="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                            alt=""
-                        />
+                    <hr />
+                    <div className="mb-6 text-sm">
+                        <p>
+                            <span className="">Posted</span> {timeSince(posts.date)}
+                        </p>
                     </div>
                 </div>
             </div>
-            <div className="mt-6 pt-6 border-t border-gray-200">
-                <p>{posts.description}</p>
-            </div>
             <div className="mt-6 py-6 border-y border-gray-200">
                 <h2 className="mb-4 font-semibold text-lg">Where to collect</h2>
-                <Map />
-                <h3 className="mt-4 font-semibold text-md">{posts.pcode}</h3>
+                {posts?.location?.coordinates && <Map position={posts.location.coordinates} />}
+                <p className="mt-4">{posts.pcode}</p>
             </div>
             <div className="py-6">
-                <a href={`/account/${posts.name}`}>{posts.name}</a>
-                <p>{posts.email}</p>
+                <h2 className="mb-4 font-semibold text-lg">About company</h2>
+                <div className="bg-neutral-100 p-6 rounded-2xl">
+                    {/* make a user profile display component */}
+                    <a href={`/account/${posts.name}`}>{posts.name}</a>
+                    <p>{posts.email}</p>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# Getting Started
+
+Welcome to the Smarce project repo. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Plugins
+
+The following plugins are requred for development:
+
+- ESLint *(Microsoft)*
+- Prettier *(Prettier)*
+- EditorConfig *(EditorConfig)*
 
 ## Available Scripts
 

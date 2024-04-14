@@ -52,9 +52,7 @@ export default function PostPage() {
                     </div>
                     <hr />
                     <div className="mb-6 text-sm">
-                        <p>
-                            <span className="">Posted</span> {timeSince(posts.date)}
-                        </p>
+                        <p>Posted {timeSince(posts.date)}</p>
                     </div>
                 </div>
             </div>

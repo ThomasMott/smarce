@@ -4,7 +4,6 @@ import { getMiles } from '../../utils/distanceConversion';
 
 export default function Post({ link, title, author, image, distance }) {
     const serverBaseURI = 'http://localhost:5000'; // set this to the value of express server
-    console.log(image);
     return (
         <a href={link}>
             <div className="h-full w-full">
@@ -24,7 +23,9 @@ export default function Post({ link, title, author, image, distance }) {
                     )}
                 </div>
                 <div>
-                    <p className="capitalize text-lg font-semibold text-navy-700">{title}</p>
+                    <p className="capitalize text-lg font-semibold text-navy-700 text-ellipsis line-clamp-1">
+                        {title}
+                    </p>
                     <p className="mt-1 text-sm text-gray-600">{author}</p>
                     <p className="mt-1 text-sm text-gray-600">{getMiles(distance)} miles away</p>
                 </div>

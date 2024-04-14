@@ -102,16 +102,6 @@ class EditPostModal extends Component {
                         value={this.props.posts.email}
                         isRequired
                     />
-                    <FormInput
-                        onChange={this.onChange}
-                        label="Location"
-                        type="text"
-                        name="location"
-                        id="location"
-                        placeholder="Where can it be delivered / collected"
-                        value={this.props.posts.pcode}
-                        isRequired
-                    />
                     <input
                         type="file"
                         id="image"

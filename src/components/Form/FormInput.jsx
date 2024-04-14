@@ -9,6 +9,7 @@ export default function FormInput({
     placeholder,
     value,
     isRequired,
+    isDisabled,
     onChange,
 }) {
     return (
@@ -25,6 +26,7 @@ export default function FormInput({
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder={placeholder}
                 required={isRequired}
+                disabled={isDisabled}
             />
         </div>
     );
@@ -38,5 +40,6 @@ FormInput.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     isRequired: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     onChange: PropTypes.func,
 };

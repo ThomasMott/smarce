@@ -12,6 +12,9 @@ export default function Tags() {
 
     return (
         <div className="my-6 flex gap-4">
+            <a className="border-b-2 border-white hover:border-gray-400 hover:opacity-60" href="/">
+                All
+            </a>
             {tagList.map(function (data, index) {
                 return (
                     <Tag

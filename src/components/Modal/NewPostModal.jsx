@@ -8,6 +8,15 @@ function NewPostModal() {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
     
+    const categories = [
+        'metal',
+        'wood',
+        'glass',
+        'textiles',
+        'ceramics',
+        'other'
+    ];
+    
     const initialState = {
         title: '',
         description: '',
@@ -94,16 +103,25 @@ function NewPostModal() {
                 value={formData.title}
                 isRequired
             />
-            <FormInput
-                onChange={onChange}
-                label="Category"
-                type="text"
-                name="category"
-                id="category"
-                placeholder="wood"
-                value={formData.category}
-                isRequired
-            />
+            <div>
+                <label htmlFor="category" className="mb-2 block text-sm font-medium text-gray-700">
+                    Category
+                </label>
+                <select
+                    onChange={onChange}
+                    name="category"
+                    id="category"
+                    value={formData.category}
+                    className="bg-gray-50 border border-gray-300 mt-1 block w-full pl-3 py-2 text-base border-gray-300 sm:text-sm rounded-md"
+                    required
+                >
+                    {categories.map((category) => (
+                        <option key={category} value={category}>
+                            {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </option>
+                    ))}
+                </select>
+            </div>
             <FormInput
                 onChange={onChange}
                 label="Description"

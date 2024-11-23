@@ -1,130 +1,139 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { newPost } from '../../actions/postActions';
 import Button from '../Form/Button';
 import FormInput from '../Form/FormInput';
 
-function withMyHook(Component) {
-    return function WrappedComponent(props) {
-        const auth = useSelector((state) => state.auth);
-        const user = auth.user;
-
-        return <Component {...props} user={user} />;
+function NewPostModal() {
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+    
+    const initialState = {
+        title: '',
+        description: '',
+        location: '',
+        category: 'wood',
+        image: null
     };
-}
 
-class NewPostModal extends Component {
-    constructor() {
-        super();
-        this.state = {
-            email: '',
-            title: '',
-            description: '',
-            image: '',
-            location: '',
-        };
+    const [formData, setFormData] = useState(initialState);
+
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const onChangeImage = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.files[0] });
+    };
+
+    // Log user data first
+    console.log('User data:', {
+        id: user?.id,
+        name: user?.name,
+        email: user?.email
+    });
+    
+    // Validate required user data
+    if (!user?.id || !user?.name || !user?.email) {
+        console.error('Required user data is missing', { user });
+        return;
     }
 
-    onChange = (e) => {
-        this.setState({ [e.target.id]: e.target.value });
-    };
-
-    onChangeImage = (e) => {
-        this.setState({ [e.target.id]: e.target.files[0] });
-    };
-
-    onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        const postData = new FormData();
-        postData.append('user', this.props.user.id);
-        postData.append('name', this.props.user.name);
-        postData.append('email', this.state.email);
-        postData.append('category', this.state.category);
-        postData.append('title', this.state.title);
-        postData.append('description', this.state.description);
-        postData.append('image', this.state.image);
-        postData.append('location', this.state.location);
+        
+        try {
+            const postData = new FormData();
+            
+            // Required user data
+            postData.append('user', user.id);
+            postData.append('name', user.name);
+            postData.append('email', user.email);
+            
+            // Required form data
+            postData.append('title', formData.title);
+            postData.append('description', formData.description);
+            postData.append('location', formData.location);
+            postData.append('category', formData.category);
+            
+            // Optional image
+            if (formData.image) {
+                postData.append('image', formData.image);
+            }
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };
+            // Log all form data entries
+            console.log('Form Data Contents:');
+            for (let [key, value] of postData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
 
-        this.props.newPost(postData, config);
+            console.log('Dispatching newPost action...');
+            const result = await dispatch(newPost(postData));
+            console.log('Dispatch result:', result);
+            
+            setFormData(initialState);
+        } catch (error) {
+            console.error('Error creating post:', error);
+        }
     };
 
-    render() {
-        return (
-            <form className="pt-4 space-y-6" onSubmit={this.onSubmit}>
-                <FormInput
-                    onChange={this.onChange}
-                    label="Post title"
-                    type="text"
-                    name="title"
-                    id="title"
-                    placeholder="What are you looking to get rid of?"
-                    isRequired
-                />
-                <FormInput
-                    onChange={this.onChange}
-                    label="Email"
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder="email@example.com"
-                    isRequired
-                />
-                <FormInput
-                    onChange={this.onChange}
-                    label="Category"
-                    type="category"
-                    name="category"
-                    id="category"
-                    placeholder="wood"
-                    value="wood"
-                    isRequired
-                />
-                <FormInput
-                    onChange={this.onChange}
-                    label="description"
-                    type="text"
-                    name="description"
-                    id="description"
-                    placeholder="A short description of what you have"
-                    isRequired
-                />
-                <FormInput
-                    onChange={this.onChange}
-                    label="Location"
-                    type="text"
-                    name="location"
-                    id="location"
-                    placeholder="Where can it be delivered / collected"
-                    isRequired
-                />
-                <input
-                    type="file"
-                    id="image"
-                    accept=".png, .jpg, .jpeg"
-                    name="image"
-                    onChange={this.onChangeImage}
-                />
-                <Button label="Add new post" />
-            </form>
-        );
+    // Early return if user data is missing
+    if (!user?.id || !user?.name || !user?.email) {
+        return <div>Error: User data is incomplete. Please log in again.</div>;
     }
+
+    return (
+        <form className="pt-4 space-y-6" encType="multipart/form-data" onSubmit={onSubmit}>
+            <FormInput
+                onChange={onChange}
+                label="Post title"
+                type="text"
+                name="title"
+                id="title"
+                placeholder="What are you looking to get rid of?"
+                value={formData.title}
+                isRequired
+            />
+            <FormInput
+                onChange={onChange}
+                label="Category"
+                type="text"
+                name="category"
+                id="category"
+                placeholder="wood"
+                value={formData.category}
+                isRequired
+            />
+            <FormInput
+                onChange={onChange}
+                label="Description"
+                type="text"
+                name="description"
+                id="description"
+                placeholder="A short description of what you have"
+                value={formData.description}
+                isRequired
+            />
+            <FormInput
+                onChange={onChange}
+                label="Location"
+                type="text"
+                name="location"
+                id="location"
+                placeholder="Enter your postcode"
+                value={formData.location}
+                isRequired
+            />
+            <input
+                type="file"
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                name="image"
+                onChange={onChangeImage}
+            />
+            <Button label="Add new post" type="submit" />
+        </form>
+    );
 }
 
-NewPostModal.propTypes = {
-    newPost: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-    errors: state.errors,
-});
-
-export default connect(mapStateToProps, { newPost })(withMyHook(NewPostModal));
+export default NewPostModal;

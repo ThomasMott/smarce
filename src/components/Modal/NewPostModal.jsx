@@ -34,17 +34,9 @@ function NewPostModal() {
     const onChangeImage = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.files[0] });
     };
-
-    // Log user data first
-    console.log('User data:', {
-        id: user?.id,
-        name: user?.name,
-        email: user?.email
-    });
     
     // Validate required user data
     if (!user?.id || !user?.name || !user?.email) {
-        console.error('Required user data is missing', { user });
         return;
     }
 
@@ -70,18 +62,10 @@ function NewPostModal() {
                 postData.append('image', formData.image);
             }
 
-            // Log all form data entries
-            console.log('Form Data Contents:');
-            for (let [key, value] of postData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-
-            console.log('Dispatching newPost action...');
-            const result = await dispatch(newPost(postData));
-            console.log('Dispatch result:', result);
-            
+            await dispatch(newPost(postData));
             setFormData(initialState);
         } catch (error) {
+            // Keep error logging for production debugging
             console.error('Error creating post:', error);
         }
     };

@@ -52,7 +52,6 @@ export default function UserPage() {
                             key={index}
                             title={post.title}
                             author={post.name}
-                            location={post.location}
                             image={post.image}
                         />
                     ))}

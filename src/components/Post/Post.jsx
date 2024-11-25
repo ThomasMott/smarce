@@ -27,7 +27,7 @@ export default function Post({ link, title, author, image, distance }) {
                         {title}
                     </p>
                     <p className="mt-1 text-sm text-gray-600">{author}</p>
-                    <p className="mt-1 text-sm text-gray-600">{getMiles(distance)} miles away</p>
+                    {distance ? (<p className="mt-1 text-sm text-gray-600">{getMiles(distance)} miles away</p>) : null}
                 </div>
             </div>
         </a>

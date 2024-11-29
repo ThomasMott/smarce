@@ -93,13 +93,13 @@ export const unsavePost = (postId) => () => {
         });
 };
 
-// Get saved posts (new)
+// Get saved posts
 export const getSavedPosts = () => () => {
     const token = localStorage.getItem('jwtToken');
     setAuthToken(token);
 
     return axios
-        .get(`/api/users/saved-posts`)
+        .get('/api/users/saved-posts')
         .then((res) => {
             return res.data.savedPosts;
         })

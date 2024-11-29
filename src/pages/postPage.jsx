@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPost } from '../actions/postActions';
+import { savePost, unsavePost, getSavedPosts } from '../actions/userActions';
 import { getPostParams } from '../actions/urlActions';
 import Button from '../components/Form/Button';
 import Map from '../components/Map/Map';
@@ -10,24 +11,56 @@ import { timeSince } from '../utils/timeset';
 export default function PostPage() {
     const dispatch = useDispatch();
     const [posts, setPosts] = useState({});
+    const [isSaved, setIsSaved] = useState(false);
     const { id } = useParams();
-    const serverBaseURI = 'http://localhost:5000'; // set this to the value of express server
+    const serverBaseURI = 'http://localhost:5000';
+    
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
+        console.log('Auth in useEffect:', auth);
+        console.log('User in useEffect:', auth.user);
+        
         dispatch(getPost(id)).then((res) => setPosts(res));
         getPostParams();
-    }, []);
+        
+        if (auth.isAuthenticated && auth.user) {
+            dispatch(getSavedPosts()).then((savedPosts) => {
+                setIsSaved(savedPosts?.some(post => post._id === id));
+            });
+        }
+    }, [dispatch, id, auth]);
 
-    const auth = useSelector((state) => state.auth);
-    const user = auth.user.id;
+    const handleSaveToggle = () => {
+        if (isSaved) {
+            dispatch(unsavePost(id)).then(() => setIsSaved(false));
+        } else {
+            dispatch(savePost(id)).then(() => setIsSaved(true));
+        }
+    };
 
     return (
         <div className="px-4 mx-auto max-w-screen-xl sm:py-8 lg:px-6">
             <div className="flex justify-between gap-3 items-center">
                 <h1 className="capitalize text-xl font-semibold mb-2">{posts.title}</h1>
-                {user === posts.userId && (
-                    <Button href={`/account/post/edit/${id}`} label="Edit post" />
-                )}
+                <div className="flex gap-2">
+                    {auth.isAuthenticated && auth.user && (
+                        auth.user.id === posts.userId ? (
+                            <Button href={`/account/post/edit/${id}`} label="Edit post" />
+                        ) : (
+                            <button
+                                onClick={handleSaveToggle}
+                                className={`px-4 py-2 rounded-full text-sm font-medium ${
+                                    isSaved 
+                                        ? 'bg-gray-200 hover:bg-gray-300 text-gray-800' 
+                                        : 'bg-blue-500 hover:bg-blue-600 text-white'
+                                }`}
+                            >
+                                {isSaved ? 'Unsave' : 'Save Post'}
+                            </button>
+                        )
+                    )}
+                </div>
             </div>
             <div className="grid grid-cols-4 gap-6 pt-4">
                 <div className="col-span-3">

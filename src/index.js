@@ -31,6 +31,7 @@ import HomePage from './pages/homePage';
 import PostPage from './pages/postPage';
 import UserPage from './pages/userPage';
 import Root from './routes/root';
+import SavedPostsPage from './pages/savedPostsPage';
 
 /* page routes */
 export const ABOUT_PAGE = '/about';
@@ -40,6 +41,7 @@ export const HELP_PAGE = '/help';
 export const HOME_PAGE = '/';
 export const NEW_POST_PAGE = 'account/post/new';
 export const POST_PAGE = '/post/';
+export const SAVED_POSTS_PAGE = '/saved-posts';
 
 /* Check for token to keep user logged in */
 if (localStorage.jwtToken) {
@@ -92,6 +94,7 @@ const router = createBrowserRouter(
                     </Route>
                 </Route>
                 <Route path="post/:id" element={<PostPage />} />
+                <Route path="saved-posts" element={<SavedPostsPage />} />
             </Route>
         </Route>
     )

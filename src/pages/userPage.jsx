@@ -34,7 +34,20 @@ export default function UserPage() {
                         <h1 className="text-2xl font-semibold mb-6">{users.name}</h1>
                         <p>{users.email}</p>
                         {user.id == users._id && (
-                            <a href={`/account/edit/${user.name}`}>Edit account</a>
+                            <div className="flex gap-4 mt-4">
+                                <a 
+                                    href={`/account/edit/${user.name}`}
+                                    className="text-blue-500 hover:text-blue-600"
+                                >
+                                    Edit account
+                                </a>
+                                <a 
+                                    href="/saved-posts"
+                                    className="text-blue-500 hover:text-blue-600"
+                                >
+                                    View saved posts
+                                </a>
+                            </div>
                         )}
                     </div>
                 )}

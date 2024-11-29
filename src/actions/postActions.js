@@ -1,11 +1,39 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import setAuthToken from '../utils/setAuthToken';
 
-// Public routes remain unchanged
+// Add Saved posts
+// ~ .get(`/api/posts/${user}`);
+// Add get by query
+// ~ .get(`/api/posts?query=${query}`);
+
+// Get all posts
 export const getPosts = (params) => () => {
+    // If no page specified, defaults to page 1
+    if (!params.has('page')) {
+        params.append('page', '1');
+    }
+
     return axios
-        .get('/api/posts/', { params: params })
+        .get('/api/posts/', { params })
+        .then((res) => {
+            return {
+                posts: res.data.posts,
+                hasMore: res.data.hasMore
+            };
+        })
+        .catch((err) => {
+            toast(err.response.data.msg);
+            return {
+                posts: [],
+                hasMore: false
+            };
+        });
+};
+
+// Get specific post
+export const getPost = (id) => () => {
+    return axios
+        .get(`/api/posts/${id}`)
         .then((res) => {
             const posts = res.data.posts;
             return posts;
@@ -15,95 +43,58 @@ export const getPosts = (params) => () => {
         });
 };
 
-// Protected routes need token
-export const newPost = (postData, config) => () => {
-    const token = localStorage.getItem('jwtToken');
-    setAuthToken(token);
+// Get user posts
+export const getUserPosts = (id) => () => {
+    return axios
+        .get(`/api/posts/user/${id}`)
+        .then((res) => {
+            const posts = res.data.posts;
+            return posts;
+        })
+        .catch((err) => {
+            toast(err.response.data.msg);
+        });
+};
 
+// New post
+export const newPost = (postData, config) => () => {
     return axios
         .post('/api/posts/new', postData, config)
         .then(() => {
             window.location.replace('/?post=new');
         })
         .catch((err) => {
-            if (err.response.status === 401) {
-                toast('Please log in to create posts');
-            } else {
-                toast(err.response.data.msg || 'Error creating post');
-            }
+            toast(err.response.data.msg);
         });
 };
 
+// Edit post
 export const editPost = (id, postData, config) => () => {
-    const token = localStorage.getItem('jwtToken');
-    setAuthToken(token);
-
     return axios
         .put(`/api/posts/edit/${id}`, postData, config)
         .then(() => {
             window.location.replace(`/post/${id}?post=updated`);
         })
         .catch((err) => {
-            if (err.response.status === 401) {
-                toast('Please log in to edit posts');
-            } else {
-                toast(err.response.data.msg || 'Error updating post');
-            }
+            toast(err.response.data.msg);
         });
 };
 
+// Delete post
 export const deletePost = (id) => () => {
-    const token = localStorage.getItem('jwtToken');
-    setAuthToken(token);
-
     return axios
         .delete(`/api/posts/delete/${id}`)
         .then(() => {
             window.location.replace('/?post=deleted');
         })
         .catch((err) => {
-            if (err.response.status === 401) {
-                toast('Please log in to delete posts');
-            } else {
-                toast(err.response.data.msg || 'Error deleting post');
-            }
+            toast(err.response.data.msg);
         });
 };
 
+// Delete all user posts (triggers when account deleted)
 export const deleteAllPosts = (id) => () => {
-    const token = localStorage.getItem('jwtToken');
-    setAuthToken(token);
-
-    return axios
-        .delete(`/api/posts/delete/all/${id}`)
-        .catch((err) => {
-            if (err.response.status === 401) {
-                toast('Please log in to delete posts');
-            } else {
-                toast(err.response.data.msg || 'Error deleting posts');
-            }
-        });
-};
-
-// Public routes remain unchanged
-export const getPost = (id) => () => {
-    return axios.get(`/api/posts/${id}`)
-        .then((res) => {
-            const posts = res.data.posts;
-            return posts;
-        })
-        .catch((err) => {
-            toast(err.response.data.msg);
-        });
-};
-
-export const getUserPosts = (id) => () => {
-    return axios.get(`/api/posts/user/${id}`)
-        .then((res) => {
-            const posts = res.data.posts;
-            return posts;
-        })
-        .catch((err) => {
-            toast(err.response.data.msg);
-        });
+    return axios.delete(`/api/posts/delete/all/${id}`).catch((err) => {
+        toast(err.response.data.msg);
+    });
 };

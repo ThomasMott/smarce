@@ -26,10 +26,9 @@ export default function Modal({ button, title, content, size }) {
 
     return (
         <>
-            <button type="button" onClick={openModal} className="mr-4">
+            <button type="button" onClick={openModal} className="mr-4 text-blue-500 hover:text-blue-600">
                 {button}
             </button>
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child

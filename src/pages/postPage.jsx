@@ -7,6 +7,7 @@ import { getPostParams } from '../actions/urlActions';
 import Button from '../components/Form/Button';
 import Map from '../components/Map/Map';
 import { timeSince } from '../utils/timeset';
+import postImage from '../public/images/test.webp';
 
 export default function PostPage() {
     const dispatch = useDispatch();
@@ -72,7 +73,7 @@ export default function PostPage() {
                         />
                     ) : (
                         <img
-                            src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/Nft3.3b3e6a4b3ada7618de6c.png"
+                            src={postImage}
                             className="opacity-60 object-cover h-full w-full rounded-lg"
                             alt="image"
                         />

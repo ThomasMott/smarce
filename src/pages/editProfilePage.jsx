@@ -9,6 +9,7 @@ import Button from '../components/Form/Button';
 import FormInput from '../components/Form/FormInput';
 import Breadcrumb from '../components/Nav/Breadcrumb';
 import { store } from '../store';
+import { validateBio, validateLinks, validateTags, validateImageSize } from '../utils/validationUtils';
 
 function EditProfilePage() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function EditProfilePage() {
         links: '',
         tags: ''
     });
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         dispatch(getUser(id)).then((res) => {
@@ -61,6 +63,27 @@ function EditProfilePage() {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const newErrors = {};
+
+        // Validate fields
+        const bioError = validateBio(formData.bio);
+        if (bioError) newErrors.bio = bioError;
+
+        const linksError = validateLinks(formData.links);
+        if (linksError) newErrors.links = linksError;
+
+        const tagsError = validateTags(formData.tags);
+        if (tagsError) newErrors.tags = tagsError;
+
+        const imageError = validateImageSize(formData.image);
+        if (imageError) newErrors.image = imageError;
+
+        // If there are errors, set them and prevent submission
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         const userData = new FormData();
         userData.append('user', auth.user.id);
         userData.append('name', formData.name);
@@ -127,6 +150,7 @@ function EditProfilePage() {
                     placeholder="Tell us about yourself"
                     value={formData.bio}
                 />
+                {errors.bio && <p className="text-red-500">{errors.bio}</p>}
                 <div>
                     <label htmlFor="image" className="block mb-2">Profile Image</label>
                     <input
@@ -138,6 +162,7 @@ function EditProfilePage() {
                         className="border rounded p-2"
                     />
                 </div>
+                {errors.image && <p className="text-red-500">{errors.image}</p>}
                 <FormInput
                     onChange={onChange}
                     label="Links (comma separated)"
@@ -147,6 +172,7 @@ function EditProfilePage() {
                     placeholder="link1.com, link2.com"
                     value={formData.links}
                 />
+                {errors.links && <p className="text-red-500">{errors.links}</p>}
                 <FormInput
                     onChange={onChange}
                     label="Tags (comma separated)"
@@ -156,6 +182,7 @@ function EditProfilePage() {
                     placeholder="tag1, tag2"
                     value={formData.tags}
                 />
+                {errors.tags && <p className="text-red-500">{errors.tags}</p>}
                 <div className="flex gap-4">
                     <Button label="Update Profile" />
                     <button

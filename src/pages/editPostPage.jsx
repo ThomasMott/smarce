@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { deletePost, editPost, getPost } from '../actions/postActions';
 import Button from '../components/Form/Button';
 import FormInput from '../components/Form/FormInput';
+import { validatePostTitle, validateImageSize, validatePostDescription } from '../utils/validationUtils';
 
 function EditPostModal() {
     const dispatch = useDispatch();
@@ -19,17 +20,20 @@ function EditPostModal() {
         image: '',
         location: '',
     });
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         dispatch(getPost(id)).then((res) => setPosts(res));
     }, [dispatch, id]);
 
     const onChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
     };
 
     const onChangeImage = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.files[0] });
+        const file = e.target.files[0];
+        setFormData({ ...formData, image: file });
     };
 
     const onClick = () => {
@@ -38,6 +42,24 @@ function EditPostModal() {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const newErrors = {};
+
+        // Validate fields
+        const titleError = validatePostTitle(formData.title);
+        if (titleError) newErrors.title = titleError;
+
+        const descriptionError = validatePostDescription(formData.description);
+        if (descriptionError) newErrors.description = descriptionError;
+
+        const imageError = validateImageSize(formData.image);
+        if (imageError) newErrors.image = imageError;
+
+        // If there are errors, set them and prevent submission
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         const postData = new FormData();
         postData.append('user', user.id);
         postData.append('name', user.name);
@@ -70,6 +92,7 @@ function EditPostModal() {
                     value={posts.title}
                     isRequired
                 />
+                {errors.title && <p className="text-red-500">{errors.title}</p>}
                 <FormInput
                     onChange={onChange}
                     label="Post description"
@@ -80,6 +103,7 @@ function EditPostModal() {
                     value={posts.description}
                     isRequired
                 />
+                {errors.description && <p className="text-red-500">{errors.description}</p>}
                 <input
                     type="file"
                     id="image"
@@ -87,6 +111,7 @@ function EditPostModal() {
                     name="image"
                     onChange={onChangeImage}
                 />
+                {errors.image && <p className="text-red-500">{errors.image}</p>}
                 <div className="flex gap-4">
                     <Button label="Update post" />
                     <button

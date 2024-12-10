@@ -50,4 +50,11 @@ export const validatePostDescription = (description) => {
         return 'Post description must be 300 characters or less.';
     }
     return null; // No error
+};
+
+export const validateLocation = (location) => {
+    if (!location.trim()) {
+        return 'Location cannot be empty.';
+    }
+    return null; // No error
 }; 

@@ -1,82 +1,73 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newPost } from '../../actions/postActions';
+import { validatePostTitle, validatePostDescription, validateImageSize, validateLocation } from '../../utils/validationUtils';
 import Button from '../Form/Button';
 import FormInput from '../Form/FormInput';
 
-function NewPostModal() {
+const NewPostModal = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
-    
-    const categories = [
-        'metal',
-        'wood',
-        'glass',
-        'textiles',
-        'ceramics',
-        'other'
-    ];
-    
-    const initialState = {
+    const [formData, setFormData] = useState({
         title: '',
         description: '',
+        image: null,
         location: '',
-        category: 'wood',
-        image: null
-    };
-
-    const [formData, setFormData] = useState(initialState);
+        category: '',
+    });
+    const [errors, setErrors] = useState({});
+    const { user } = useSelector((state) => state.auth);
 
     const onChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
     };
 
     const onChangeImage = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.files[0] });
+        const file = e.target.files[0];
+        setFormData({ ...formData, image: file });
     };
-    
-    // Validate required user data
-    if (!user?.id || !user?.name || !user?.email) {
-        return;
-    }
 
-    const onSubmit = async (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        
-        try {
-            const postData = new FormData();
-            
-            // Required user data
-            postData.append('user', user.id);
-            postData.append('name', user.name);
-            postData.append('email', user.email);
-            
-            // Required form data
-            postData.append('title', formData.title);
-            postData.append('description', formData.description);
-            postData.append('location', formData.location);
-            postData.append('category', formData.category);
-            
-            // Optional image
-            if (formData.image) {
-                postData.append('image', formData.image);
-            }
+        const newErrors = {};
 
-            await dispatch(newPost(postData));
-            setFormData(initialState);
-        } catch (error) {
-            // Keep error logging for production debugging
-            console.error('Error creating post:', error);
+        // Validate fields
+        const titleError = validatePostTitle(formData.title);
+        if (titleError) newErrors.title = titleError;
+
+        const descriptionError = validatePostDescription(formData.description);
+        if (descriptionError) newErrors.description = descriptionError;
+
+        const imageError = validateImageSize(formData.image);
+        if (imageError) newErrors.image = imageError;
+
+        const locationError = validateLocation(formData.location);
+        if (locationError) newErrors.location = locationError;
+
+        // If there are errors, set them and prevent submission
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
         }
-    };
 
-    // Early return if user data is missing
-    if (!user?.id || !user?.name || !user?.email) {
-        return <div>Error: User data is incomplete. Please log in again.</div>;
-    }
+        // Trim whitespace from location before sending
+        const postData = new FormData();
+        // Required user data
+        postData.append('user', user.id);
+        postData.append('name', user.name);
+        postData.append('email', user.email);
+        // Post data
+        postData.append('title', formData.title);
+        postData.append('description', formData.description);
+        postData.append('image', formData.image);
+        postData.append('location', formData.location.trim()); // Trim whitespace
+        postData.append('category', formData.category); // Include category
+
+        dispatch(newPost(postData));
+    };
 
     return (
-        <form className="pt-4 space-y-6" encType="multipart/form-data" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
             <FormInput
                 onChange={onChange}
                 label="Post title"
@@ -87,6 +78,37 @@ function NewPostModal() {
                 value={formData.title}
                 isRequired
             />
+            {errors.title && <p className="text-red-500">{errors.title}</p>}
+            <FormInput
+                onChange={onChange}
+                label="Post description"
+                type="text"
+                name="description"
+                id="description"
+                placeholder="A short description of what you have"
+                value={formData.description}
+                isRequired
+            />
+            {errors.description && <p className="text-red-500">{errors.description}</p>}
+            <input
+                type="file"
+                id="image"
+                accept=".png, .jpg, .jpeg"
+                name="image"
+                onChange={onChangeImage}
+            />
+            {errors.image && <p className="text-red-500">{errors.image}</p>}
+            <FormInput
+                onChange={onChange}
+                label="Location"
+                type="text"
+                name="location"
+                id="location"
+                placeholder="Enter your location"
+                value={formData.location}
+                isRequired
+            />
+            {errors.location && <p className="text-red-500">{errors.location}</p>}
             <div>
                 <label htmlFor="category" className="mb-2 block text-sm font-medium text-gray-700">
                     Category
@@ -99,43 +121,20 @@ function NewPostModal() {
                     className="bg-gray-50 border border-gray-300 mt-1 block w-full pl-3 py-2 text-base border-gray-300 sm:text-sm rounded-md"
                     required
                 >
-                    {categories.map((category) => (
-                        <option key={category} value={category}>
-                            {category.charAt(0).toUpperCase() + category.slice(1)}
-                        </option>
-                    ))}
+                    <option value="" disabled>Select Material</option>
+                    <option value="metal">Metal</option>
+                    <option value="wood">Wood</option>
+                    <option value="glass">Glass</option>
+                    <option value="textiles">Textiles</option>
+                    <option value="ceramics">Ceramics</option>
+                    <option value="other">Other</option>
                 </select>
             </div>
-            <FormInput
-                onChange={onChange}
-                label="Description"
-                type="text"
-                name="description"
-                id="description"
-                placeholder="A short description of what you have"
-                value={formData.description}
-                isRequired
-            />
-            <FormInput
-                onChange={onChange}
-                label="Location"
-                type="text"
-                name="location"
-                id="location"
-                placeholder="Enter your postcode"
-                value={formData.location}
-                isRequired
-            />
-            <input
-                type="file"
-                id="image"
-                accept=".png, .jpg, .jpeg"
-                name="image"
-                onChange={onChangeImage}
-            />
-            <Button label="Add new post" type="submit" />
+            <div className="flex gap-4">
+                <Button label="Add new post" type="submit" />
+            </div>
         </form>
     );
-}
+};
 
 export default NewPostModal;
